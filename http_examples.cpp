@@ -40,6 +40,7 @@ int main() {
         std::cout<<start<<" to "<<end<<std::endl;
 
       //todo change this
+
         SimpleWeb::CaseInsensitiveMultimap header;
 
         header.emplace("Access-Control-Allow-Origin", "*");
@@ -48,8 +49,9 @@ int main() {
         header.emplace("Access-Control-Max-Age", "3600");
         header.emplace("Access-Control-Allow-Headers", "Content-Type, Accept, X-Requested-With, remember-me");
 
+        std::string content = "test";
+        response->write(SimpleWeb::StatusCode::success_ok,content,header);
 
-        response->write("test", header);
 
     }
     catch(const exception &e) {
