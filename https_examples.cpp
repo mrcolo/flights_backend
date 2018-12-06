@@ -1,4 +1,3 @@
-#include "client_https.hpp"
 #include "server_https.hpp"
 
 // Added for the json-example
@@ -18,7 +17,6 @@ using namespace std;
 using namespace boost::property_tree;
 
 using HttpsServer = SimpleWeb::Server<SimpleWeb::HTTPS>;
-using HttpsClient = SimpleWeb::Client<SimpleWeb::HTTPS>;
 
 int main() {
   // HTTPS-server at port 8080 using 1 thread
@@ -210,31 +208,6 @@ int main() {
 
   // Wait for server to start so that the client can connect
   this_thread::sleep_for(chrono::seconds(1));
-
-  // Client examples
-  // Second create() parameter set to false: no certificate verification
-  HttpsClient client("localhost:8080", false);
-
-  string json_string = "{\"firstName\": \"John\",\"lastName\": \"Smith\",\"age\": 25}";
-
-  // Synchronous request examples
-  try {
-    auto r1 = client.request("GET", "/match/123");
-    cout << r1->content.rdbuf() << endl; // Alternatively, use the convenience function r1->content.string()
-
-    auto r2 = client.request("POST", "/string", json_string);
-    cout << r2->content.rdbuf() << endl;
-  }
-  catch(const SimpleWeb::system_error &e) {
-    cerr << "Client request error: " << e.what() << endl;
-  }
-
-  // Asynchronous request example
-  client.request("POST", "/json", json_string, [](shared_ptr<HttpsClient::Response> response, const SimpleWeb::error_code &ec) {
-    if(!ec)
-      cout << response->content.rdbuf() << endl;
-  });
-  client.io_service->run();
 
   server_thread.join();
 }
