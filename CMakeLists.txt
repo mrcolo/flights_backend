@@ -52,7 +52,7 @@ endif()
 
 # If Simple-Web-Server is not a sub-project:
 if("${CMAKE_SOURCE_DIR}" STREQUAL "${CMAKE_CURRENT_SOURCE_DIR}")
-    add_executable(http_examples http_examples.cpp engine/engine.cpp engine/engine.h)
+    add_executable(http_examples http_examples.cpp engine/engine.cpp engine/engine.h engine/objects/Airport.cpp engine/objects/Airport.h)
     target_link_libraries(http_examples simple-web-server)
     find_package(Boost 1.53.0 COMPONENTS system thread filesystem REQUIRED)
     target_link_libraries(http_examples ${Boost_LIBRARIES})

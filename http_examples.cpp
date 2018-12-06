@@ -61,7 +61,30 @@ int main() {
 
   };
 
-  // Default GET-example. If no other matches, this anonymous function will be called.
+    server.resource["^/getairports"]["GET"] = [&engine](shared_ptr<HttpServer::Response> response, shared_ptr<HttpServer::Request> request) {
+        try {
+            std::string content = engine.getAirports();
+            SimpleWeb::CaseInsensitiveMultimap header;
+
+            header.emplace("Access-Control-Allow-Origin", "*");
+            header.emplace("Access-Control-Allow-Credentials", "true");
+            header.emplace("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
+            header.emplace("Access-Control-Max-Age", "3600");
+            header.emplace("Access-Control-Allow-Headers", "Content-Type, Accept, X-Requested-With, remember-me");
+
+            response->write(SimpleWeb::StatusCode::success_ok,content,header);
+
+
+        }
+        catch(const exception &e) {
+            *response << "HTTP/1.1 400 Bad Request\r\nContent-Length: " << strlen(e.what()) << "\r\n\r\n"
+                      << e.what();
+        }
+
+    };
+
+
+    // Default GET-example. If no other matches, this anonymous function will be called.
   // Will respond with content in the web/-directory, and its subdirectories.
   // Default file: index.html
   // Can for instance be used to retrieve an HTML 5 client that uses REST-resources on this server
