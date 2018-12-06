@@ -41,9 +41,15 @@ int main() {
 
       //todo change this
         SimpleWeb::CaseInsensitiveMultimap header;
-        header.emplace("Access-Control-Allow-Origin", "*");
-        response->write("test", header);
 
+        header.emplace("Access-Control-Allow-Origin", "*");
+        header.emplace("Access-Control-Allow-Credentials", "true");
+        header.emplace("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
+        header.emplace("Access-Control-Max-Age", "3600");
+        header.emplace("Access-Control-Allow-Headers", "Content-Type, Accept, X-Requested-With, remember-me");
+
+
+        response->write("test", header);
 
     }
     catch(const exception &e) {

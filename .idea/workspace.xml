@@ -13,23 +13,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f8b3fc6c-466d-4123-b4f0-27df0ee7fcff" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeCache.txt" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeCache.txt" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile.cmake" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile.cmake" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile2" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile2" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/TargetDirectories.txt" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/TargetDirectories.txt" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-log.txt" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-log.txt" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/http_examples.dir/CXX.includecache" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/http_examples.dir/CXX.includecache" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/http_examples.dir/depend.internal" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/http_examples.dir/depend.internal" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/http_examples.dir/depend.make" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/http_examples.dir/depend.make" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/http_examples.dir/http_examples.cpp.o" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/http_examples.dir/http_examples.cpp.o" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/http_examples.dir/progress.make" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/http_examples.dir/progress.make" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/https_examples.dir/progress.make" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/https_examples.dir/progress.make" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/progress.marks" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/progress.marks" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/Makefile" afterPath="$PROJECT_DIR$/cmake-build-debug/Makefile" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/Simple-Web-Server.cbp" afterPath="$PROJECT_DIR$/cmake-build-debug/Simple-Web-Server.cbp" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/cmake_install.cmake" afterPath="$PROJECT_DIR$/cmake-build-debug/cmake_install.cmake" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/http_examples" afterPath="$PROJECT_DIR$/cmake-build-debug/http_examples" />
       <change beforePath="$PROJECT_DIR$/http_examples.cpp" afterPath="$PROJECT_DIR$/http_examples.cpp" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
@@ -46,8 +29,8 @@
       <file leaf-file-name="http_examples.cpp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/http_examples.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="43" column="56" lean-forward="false" selection-start-line="43" selection-start-column="56" selection-end-line="43" selection-end-column="56" />
+            <state relative-caret-position="189">
+              <caret line="44" column="59" lean-forward="false" selection-start-line="44" selection-start-column="59" selection-end-line="44" selection-end-column="59" />
               <folding>
                 <element signature="e#91#137#0" expanded="true" />
               </folding>
@@ -213,12 +196,12 @@
       <updated>1544077303988</updated>
       <workItem from="1544077305322" duration="426000" />
       <workItem from="1544077734904" duration="560000" />
-      <workItem from="1544078312323" duration="5600000" />
+      <workItem from="1544078312323" duration="6429000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="6586000" />
+    <option name="totallyTimeSpent" value="7415000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="30" y="22" width="1440" height="878" extended-state="0" />
@@ -366,8 +349,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/http_examples.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="43" column="56" lean-forward="false" selection-start-line="43" selection-start-column="56" selection-end-line="43" selection-end-column="56" />
+        <state relative-caret-position="189">
+          <caret line="44" column="59" lean-forward="false" selection-start-line="44" selection-start-column="59" selection-end-line="44" selection-end-column="59" />
           <folding>
             <element signature="e#91#137#0" expanded="true" />
           </folding>
