@@ -11,10 +11,6 @@ class Airport {
 public:
     Airport(std::string i, std::string n, double la, double ln);
     Airport& operator= (const Airport &other);
-    bool operator <(const Airport& rhs) const
-    {
-        return iata_code < rhs.iata_code;
-    }
     ~Airport();
     Airport( const Airport& a );
     double Lat();
