@@ -17,12 +17,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f8b3fc6c-466d-4123-b4f0-27df0ee7fcff" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/engine/engine.cpp" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/engine/engine.h" />
-      <change beforePath="$PROJECT_DIR$/README.md" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/http_examples.cpp" afterPath="$PROJECT_DIR$/http_examples.cpp" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -38,9 +33,11 @@
       <file leaf-file-name="http_examples.cpp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/http_examples.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="366">
-              <caret line="55" column="8" lean-forward="false" selection-start-line="55" selection-start-column="8" selection-end-line="55" selection-end-column="8" />
-              <folding />
+            <state relative-caret-position="371">
+              <caret line="60" column="18" lean-forward="false" selection-start-line="60" selection-start-column="18" selection-end-line="60" selection-end-column="18" />
+              <folding>
+                <element signature="e#91#137#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -215,12 +212,12 @@
       <updated>1544077303988</updated>
       <workItem from="1544077305322" duration="426000" />
       <workItem from="1544077734904" duration="560000" />
-      <workItem from="1544078312323" duration="2153000" />
+      <workItem from="1544078312323" duration="3416000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="3139000" />
+    <option name="totallyTimeSpent" value="4402000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="30" y="22" width="1440" height="878" extended-state="0" />
@@ -253,7 +250,9 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager />
+    <breakpoint-manager>
+      <option name="time" value="1" />
+    </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
@@ -261,7 +260,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#91#137#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -295,7 +296,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="825">
           <caret line="55" column="16" lean-forward="true" selection-start-line="55" selection-start-column="16" selection-end-line="55" selection-end-column="16" />
-          <folding />
+          <folding>
+            <element signature="e#91#137#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -344,9 +347,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/http_examples.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="366">
-          <caret line="55" column="8" lean-forward="false" selection-start-line="55" selection-start-column="8" selection-end-line="55" selection-end-column="8" />
-          <folding />
+        <state relative-caret-position="371">
+          <caret line="60" column="18" lean-forward="false" selection-start-line="60" selection-start-column="18" selection-end-line="60" selection-end-column="18" />
+          <folding>
+            <element signature="e#91#137#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
