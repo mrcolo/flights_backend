@@ -40,9 +40,10 @@ int main() {
         std::cout<<start<<" to "<<end<<std::endl;
 
       //todo change this
-        SimpleWeb::CaseInsensitiveMultimap header;
+	std::string content = "test";
+	SimpleWeb::CaseInsensitiveMultimap header;
         header.emplace("Access-Control-Allow-Origin", "*");
-        response->write("test", header);
+        response->write(SimpleWeb::StatusCode::success_ok,content,header);
 
 
     }
