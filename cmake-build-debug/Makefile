@@ -56,27 +56,6 @@ CMAKE_BINARY_DIR = "/Users/francescocolonnese/Desktop/CS/CS8 Tests/test3/flights
 #=============================================================================
 # Targets provided globally by CMake.
 
-# Special rule for the target list_install_components
-list_install_components:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
-.PHONY : list_install_components
-
-# Special rule for the target list_install_components
-list_install_components/fast: list_install_components
-
-.PHONY : list_install_components/fast
-
-# Special rule for the target rebuild_cache
-rebuild_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
-.PHONY : rebuild_cache
-
-# Special rule for the target rebuild_cache
-rebuild_cache/fast: rebuild_cache
-
-.PHONY : rebuild_cache/fast
-
 # Special rule for the target install/local
 install/local: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
@@ -89,16 +68,15 @@ install/local/fast: preinstall/fast
 	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
 .PHONY : install/local/fast
 
-# Special rule for the target test
-test:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running tests..."
-	/Applications/CLion.app/Contents/bin/cmake/bin/ctest --force-new-ctest-process $(ARGS)
-.PHONY : test
+# Special rule for the target list_install_components
+list_install_components:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
+.PHONY : list_install_components
 
-# Special rule for the target test
-test/fast: test
+# Special rule for the target list_install_components
+list_install_components/fast: list_install_components
 
-.PHONY : test/fast
+.PHONY : list_install_components/fast
 
 # Special rule for the target edit_cache
 edit_cache:
@@ -134,6 +112,17 @@ install/fast: preinstall/fast
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
 	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -P cmake_install.cmake
 .PHONY : install/fast
+
+# Special rule for the target rebuild_cache
+rebuild_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
+	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+.PHONY : rebuild_cache
+
+# Special rule for the target rebuild_cache
+rebuild_cache/fast: rebuild_cache
+
+.PHONY : rebuild_cache/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -192,58 +181,6 @@ http_examples: cmake_check_build_system
 http_examples/fast:
 	$(MAKE) -f CMakeFiles/http_examples.dir/build.make CMakeFiles/http_examples.dir/build
 .PHONY : http_examples/fast
-
-#=============================================================================
-# Target rules for targets named io_test
-
-# Build rule for target.
-io_test: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 io_test
-.PHONY : io_test
-
-# fast build rule for target.
-io_test/fast:
-	$(MAKE) -f tests/CMakeFiles/io_test.dir/build.make tests/CMakeFiles/io_test.dir/build
-.PHONY : io_test/fast
-
-#=============================================================================
-# Target rules for targets named status_code_test
-
-# Build rule for target.
-status_code_test: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 status_code_test
-.PHONY : status_code_test
-
-# fast build rule for target.
-status_code_test/fast:
-	$(MAKE) -f tests/CMakeFiles/status_code_test.dir/build.make tests/CMakeFiles/status_code_test.dir/build
-.PHONY : status_code_test/fast
-
-#=============================================================================
-# Target rules for targets named crypto_test
-
-# Build rule for target.
-crypto_test: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 crypto_test
-.PHONY : crypto_test
-
-# fast build rule for target.
-crypto_test/fast:
-	$(MAKE) -f tests/CMakeFiles/crypto_test.dir/build.make tests/CMakeFiles/crypto_test.dir/build
-.PHONY : crypto_test/fast
-
-#=============================================================================
-# Target rules for targets named parse_test
-
-# Build rule for target.
-parse_test: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 parse_test
-.PHONY : parse_test
-
-# fast build rule for target.
-parse_test/fast:
-	$(MAKE) -f tests/CMakeFiles/parse_test.dir/build.make tests/CMakeFiles/parse_test.dir/build
-.PHONY : parse_test/fast
 
 engine/engine.o: engine/engine.cpp.o
 
@@ -332,19 +269,14 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... list_install_components"
-	@echo "... rebuild_cache"
 	@echo "... install/local"
-	@echo "... test"
+	@echo "... list_install_components"
 	@echo "... edit_cache"
 	@echo "... https_examples"
 	@echo "... install/strip"
 	@echo "... install"
 	@echo "... http_examples"
-	@echo "... io_test"
-	@echo "... status_code_test"
-	@echo "... crypto_test"
-	@echo "... parse_test"
+	@echo "... rebuild_cache"
 	@echo "... engine/engine.o"
 	@echo "... engine/engine.i"
 	@echo "... engine/engine.s"

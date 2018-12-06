@@ -5,7 +5,7 @@ CMake Warning at /Applications/CLion.app/Contents/bin/cmake/share/cmake-3.9/Modu
 Call Stack (most recent call first):
   /Applications/CLion.app/Contents/bin/cmake/share/cmake-3.9/Modules/FindBoost.cmake:892 (_Boost_COMPONENT_DEPENDENCIES)
   /Applications/CLion.app/Contents/bin/cmake/share/cmake-3.9/Modules/FindBoost.cmake:1523 (_Boost_MISSING_DEPENDENCIES)
-  CMakeLists.txt:31 (find_package)
+  CMakeLists.txt:29 (find_package)
 
 
 CMake Warning at /Applications/CLion.app/Contents/bin/cmake/share/cmake-3.9/Modules/FindBoost.cmake:786 (message):
@@ -14,7 +14,7 @@ CMake Warning at /Applications/CLion.app/Contents/bin/cmake/share/cmake-3.9/Modu
 Call Stack (most recent call first):
   /Applications/CLion.app/Contents/bin/cmake/share/cmake-3.9/Modules/FindBoost.cmake:892 (_Boost_COMPONENT_DEPENDENCIES)
   /Applications/CLion.app/Contents/bin/cmake/share/cmake-3.9/Modules/FindBoost.cmake:1523 (_Boost_MISSING_DEPENDENCIES)
-  CMakeLists.txt:31 (find_package)
+  CMakeLists.txt:29 (find_package)
 
 
 CMake Warning at /Applications/CLion.app/Contents/bin/cmake/share/cmake-3.9/Modules/FindBoost.cmake:786 (message):
@@ -23,7 +23,7 @@ CMake Warning at /Applications/CLion.app/Contents/bin/cmake/share/cmake-3.9/Modu
 Call Stack (most recent call first):
   /Applications/CLion.app/Contents/bin/cmake/share/cmake-3.9/Modules/FindBoost.cmake:892 (_Boost_COMPONENT_DEPENDENCIES)
   /Applications/CLion.app/Contents/bin/cmake/share/cmake-3.9/Modules/FindBoost.cmake:1523 (_Boost_MISSING_DEPENDENCIES)
-  CMakeLists.txt:31 (find_package)
+  CMakeLists.txt:29 (find_package)
 
 
 CMake Warning at /Applications/CLion.app/Contents/bin/cmake/share/cmake-3.9/Modules/FindBoost.cmake:786 (message):
@@ -32,7 +32,7 @@ CMake Warning at /Applications/CLion.app/Contents/bin/cmake/share/cmake-3.9/Modu
 Call Stack (most recent call first):
   /Applications/CLion.app/Contents/bin/cmake/share/cmake-3.9/Modules/FindBoost.cmake:892 (_Boost_COMPONENT_DEPENDENCIES)
   /Applications/CLion.app/Contents/bin/cmake/share/cmake-3.9/Modules/FindBoost.cmake:1523 (_Boost_MISSING_DEPENDENCIES)
-  CMakeLists.txt:31 (find_package)
+  CMakeLists.txt:29 (find_package)
 
 
 CMake Warning at /Applications/CLion.app/Contents/bin/cmake/share/cmake-3.9/Modules/FindBoost.cmake:786 (message):
@@ -41,7 +41,7 @@ CMake Warning at /Applications/CLion.app/Contents/bin/cmake/share/cmake-3.9/Modu
 Call Stack (most recent call first):
   /Applications/CLion.app/Contents/bin/cmake/share/cmake-3.9/Modules/FindBoost.cmake:892 (_Boost_COMPONENT_DEPENDENCIES)
   /Applications/CLion.app/Contents/bin/cmake/share/cmake-3.9/Modules/FindBoost.cmake:1523 (_Boost_MISSING_DEPENDENCIES)
-  CMakeLists.txt:31 (find_package)
+  CMakeLists.txt:29 (find_package)
 
 
 -- Boost version: 1.67.0
@@ -57,7 +57,7 @@ CMake Warning at /Applications/CLion.app/Contents/bin/cmake/share/cmake-3.9/Modu
 Call Stack (most recent call first):
   /Applications/CLion.app/Contents/bin/cmake/share/cmake-3.9/Modules/FindBoost.cmake:892 (_Boost_COMPONENT_DEPENDENCIES)
   /Applications/CLion.app/Contents/bin/cmake/share/cmake-3.9/Modules/FindBoost.cmake:1523 (_Boost_MISSING_DEPENDENCIES)
-  CMakeLists.txt:59 (find_package)
+  CMakeLists.txt:57 (find_package)
 
 
 CMake Warning at /Applications/CLion.app/Contents/bin/cmake/share/cmake-3.9/Modules/FindBoost.cmake:786 (message):
@@ -66,7 +66,7 @@ CMake Warning at /Applications/CLion.app/Contents/bin/cmake/share/cmake-3.9/Modu
 Call Stack (most recent call first):
   /Applications/CLion.app/Contents/bin/cmake/share/cmake-3.9/Modules/FindBoost.cmake:892 (_Boost_COMPONENT_DEPENDENCIES)
   /Applications/CLion.app/Contents/bin/cmake/share/cmake-3.9/Modules/FindBoost.cmake:1523 (_Boost_MISSING_DEPENDENCIES)
-  CMakeLists.txt:59 (find_package)
+  CMakeLists.txt:57 (find_package)
 
 
 CMake Warning at /Applications/CLion.app/Contents/bin/cmake/share/cmake-3.9/Modules/FindBoost.cmake:786 (message):
@@ -75,7 +75,7 @@ CMake Warning at /Applications/CLion.app/Contents/bin/cmake/share/cmake-3.9/Modu
 Call Stack (most recent call first):
   /Applications/CLion.app/Contents/bin/cmake/share/cmake-3.9/Modules/FindBoost.cmake:892 (_Boost_COMPONENT_DEPENDENCIES)
   /Applications/CLion.app/Contents/bin/cmake/share/cmake-3.9/Modules/FindBoost.cmake:1523 (_Boost_MISSING_DEPENDENCIES)
-  CMakeLists.txt:59 (find_package)
+  CMakeLists.txt:57 (find_package)
 
 
 CMake Warning at /Applications/CLion.app/Contents/bin/cmake/share/cmake-3.9/Modules/FindBoost.cmake:786 (message):
@@ -84,7 +84,7 @@ CMake Warning at /Applications/CLion.app/Contents/bin/cmake/share/cmake-3.9/Modu
 Call Stack (most recent call first):
   /Applications/CLion.app/Contents/bin/cmake/share/cmake-3.9/Modules/FindBoost.cmake:892 (_Boost_COMPONENT_DEPENDENCIES)
   /Applications/CLion.app/Contents/bin/cmake/share/cmake-3.9/Modules/FindBoost.cmake:1523 (_Boost_MISSING_DEPENDENCIES)
-  CMakeLists.txt:59 (find_package)
+  CMakeLists.txt:57 (find_package)
 
 
 CMake Warning at /Applications/CLion.app/Contents/bin/cmake/share/cmake-3.9/Modules/FindBoost.cmake:786 (message):
@@ -93,7 +93,7 @@ CMake Warning at /Applications/CLion.app/Contents/bin/cmake/share/cmake-3.9/Modu
 Call Stack (most recent call first):
   /Applications/CLion.app/Contents/bin/cmake/share/cmake-3.9/Modules/FindBoost.cmake:892 (_Boost_COMPONENT_DEPENDENCIES)
   /Applications/CLion.app/Contents/bin/cmake/share/cmake-3.9/Modules/FindBoost.cmake:1523 (_Boost_MISSING_DEPENDENCIES)
-  CMakeLists.txt:59 (find_package)
+  CMakeLists.txt:57 (find_package)
 
 
 CMake Warning at /Applications/CLion.app/Contents/bin/cmake/share/cmake-3.9/Modules/FindBoost.cmake:786 (message):
@@ -102,7 +102,7 @@ CMake Warning at /Applications/CLion.app/Contents/bin/cmake/share/cmake-3.9/Modu
 Call Stack (most recent call first):
   /Applications/CLion.app/Contents/bin/cmake/share/cmake-3.9/Modules/FindBoost.cmake:892 (_Boost_COMPONENT_DEPENDENCIES)
   /Applications/CLion.app/Contents/bin/cmake/share/cmake-3.9/Modules/FindBoost.cmake:1523 (_Boost_MISSING_DEPENDENCIES)
-  CMakeLists.txt:59 (find_package)
+  CMakeLists.txt:57 (find_package)
 
 
 -- Boost version: 1.67.0

@@ -44,7 +44,6 @@ set(CMAKE_MAKEFILE_DEPENDS
   "CMakeFiles/3.9.6/CMakeCCompiler.cmake"
   "CMakeFiles/3.9.6/CMakeCXXCompiler.cmake"
   "CMakeFiles/3.9.6/CMakeSystem.cmake"
-  "../tests/CMakeLists.txt"
   )
 
 # The corresponding makefile is:
@@ -56,15 +55,10 @@ set(CMAKE_MAKEFILE_OUTPUTS
 # Byproducts of CMake generate step:
 set(CMAKE_MAKEFILE_PRODUCTS
   "CMakeFiles/CMakeDirectoryInformation.cmake"
-  "tests/CMakeFiles/CMakeDirectoryInformation.cmake"
   )
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/https_examples.dir/DependInfo.cmake"
   "CMakeFiles/http_examples.dir/DependInfo.cmake"
-  "tests/CMakeFiles/io_test.dir/DependInfo.cmake"
-  "tests/CMakeFiles/status_code_test.dir/DependInfo.cmake"
-  "tests/CMakeFiles/crypto_test.dir/DependInfo.cmake"
-  "tests/CMakeFiles/parse_test.dir/DependInfo.cmake"
   )

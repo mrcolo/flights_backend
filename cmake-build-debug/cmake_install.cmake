@@ -30,19 +30,11 @@ endif()
 if("${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/simple-web-server" TYPE FILE FILES
     "/Users/francescocolonnese/Desktop/CS/CS8 Tests/test3/flights_backend/server_http.hpp"
-    "/Users/francescocolonnese/Desktop/CS/CS8 Tests/test3/flights_backend/client_http.hpp"
     "/Users/francescocolonnese/Desktop/CS/CS8 Tests/test3/flights_backend/server_https.hpp"
-    "/Users/francescocolonnese/Desktop/CS/CS8 Tests/test3/flights_backend/client_https.hpp"
     "/Users/francescocolonnese/Desktop/CS/CS8 Tests/test3/flights_backend/crypto.hpp"
     "/Users/francescocolonnese/Desktop/CS/CS8 Tests/test3/flights_backend/utility.hpp"
     "/Users/francescocolonnese/Desktop/CS/CS8 Tests/test3/flights_backend/status_code.hpp"
     )
-endif()
-
-if(NOT CMAKE_INSTALL_LOCAL_ONLY)
-  # Include the install script for each subdirectory.
-  include("/Users/francescocolonnese/Desktop/CS/CS8 Tests/test3/flights_backend/cmake-build-debug/tests/cmake_install.cmake")
-
 endif()
 
 if(CMAKE_INSTALL_COMPONENT)

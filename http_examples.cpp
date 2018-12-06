@@ -40,10 +40,11 @@ int main() {
         std::cout<<start<<" to "<<end<<std::endl;
 
       //todo change this
-      *response << "HTTP/1.1 200 OK\r\n"
-                << "Content-Length: " << '0' << "\r\n\r\n"
-                << ""
-		<< "It is working.";
+        SimpleWeb::CaseInsensitiveMultimap header;
+        header.emplace("Access-Control-Allow-Origin", "*");
+        response->write("test", header);
+
+
     }
     catch(const exception &e) {
       *response << "HTTP/1.1 400 Bad Request\r\nContent-Length: " << strlen(e.what()) << "\r\n\r\n"

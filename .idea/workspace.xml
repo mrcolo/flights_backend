@@ -2,11 +2,7 @@
 <project version="4">
   <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true" buildAllGenerated="true">
     <generated>
-      <config projectName="Simple-Web-Server" targetName="status_code_test" />
-      <config projectName="Simple-Web-Server" targetName="parse_test" />
       <config projectName="Simple-Web-Server" targetName="http_examples" />
-      <config projectName="Simple-Web-Server" targetName="io_test" />
-      <config projectName="Simple-Web-Server" targetName="crypto_test" />
       <config projectName="Simple-Web-Server" targetName="https_examples" />
     </generated>
   </component>
@@ -17,6 +13,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f8b3fc6c-466d-4123-b4f0-27df0ee7fcff" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeCache.txt" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeCache.txt" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile.cmake" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile.cmake" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile2" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile2" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/TargetDirectories.txt" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/TargetDirectories.txt" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-log.txt" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-log.txt" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/http_examples.dir/CXX.includecache" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/http_examples.dir/CXX.includecache" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/http_examples.dir/depend.internal" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/http_examples.dir/depend.internal" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/http_examples.dir/depend.make" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/http_examples.dir/depend.make" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/http_examples.dir/http_examples.cpp.o" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/http_examples.dir/http_examples.cpp.o" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/http_examples.dir/progress.make" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/http_examples.dir/progress.make" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/https_examples.dir/progress.make" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/https_examples.dir/progress.make" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/progress.marks" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/progress.marks" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/Makefile" afterPath="$PROJECT_DIR$/cmake-build-debug/Makefile" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/Simple-Web-Server.cbp" afterPath="$PROJECT_DIR$/cmake-build-debug/Simple-Web-Server.cbp" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/cmake_install.cmake" afterPath="$PROJECT_DIR$/cmake-build-debug/cmake_install.cmake" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/http_examples" afterPath="$PROJECT_DIR$/cmake-build-debug/http_examples" />
       <change beforePath="$PROJECT_DIR$/http_examples.cpp" afterPath="$PROJECT_DIR$/http_examples.cpp" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
@@ -33,11 +46,21 @@
       <file leaf-file-name="http_examples.cpp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/http_examples.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="371">
-              <caret line="60" column="18" lean-forward="false" selection-start-line="60" selection-start-column="18" selection-end-line="60" selection-end-column="18" />
+            <state relative-caret-position="165">
+              <caret line="43" column="56" lean-forward="false" selection-start-line="43" selection-start-column="56" selection-end-line="43" selection-end-column="56" />
               <folding>
                 <element signature="e#91#137#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="server_http.hpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server_http.hpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-132">
+              <caret line="109" column="64" lean-forward="false" selection-start-line="109" selection-start-column="42" selection-end-line="109" selection-end-column="64" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -58,18 +81,6 @@
             <state relative-caret-position="247">
               <caret line="13" column="34" lean-forward="false" selection-start-line="13" selection-start-column="34" selection-end-line="13" selection-end-column="34" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="parse_test.cpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tests/parse_test.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding>
-                <element signature="e#0#26#0" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -96,6 +107,11 @@
       </file>
     </leaf>
   </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>client</find>
+    </findStrings>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -104,6 +120,7 @@
       <list>
         <option value="$PROJECT_DIR$/engine/engine.h" />
         <option value="$PROJECT_DIR$/engine/engine.cpp" />
+        <option value="$PROJECT_DIR$/https_examples.cpp" />
         <option value="$PROJECT_DIR$/http_examples.cpp" />
       </list>
     </option>
@@ -169,32 +186,16 @@
     <configuration name="Build All" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" CONFIG_NAME="Debug" EXPLICIT_BUILD_TARGET_NAME="all">
       <envs />
     </configuration>
-    <configuration name="crypto_test" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Simple-Web-Server" TARGET_NAME="crypto_test" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Simple-Web-Server" RUN_TARGET_NAME="crypto_test">
-      <envs />
-    </configuration>
     <configuration name="http_examples" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Simple-Web-Server" TARGET_NAME="http_examples" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Simple-Web-Server" RUN_TARGET_NAME="http_examples">
       <envs />
     </configuration>
     <configuration name="https_examples" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Simple-Web-Server" TARGET_NAME="https_examples" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Simple-Web-Server" RUN_TARGET_NAME="https_examples">
       <envs />
     </configuration>
-    <configuration name="io_test" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Simple-Web-Server" TARGET_NAME="io_test" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Simple-Web-Server" RUN_TARGET_NAME="io_test">
-      <envs />
-    </configuration>
-    <configuration name="parse_test" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Simple-Web-Server" TARGET_NAME="parse_test" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Simple-Web-Server" RUN_TARGET_NAME="parse_test">
-      <envs />
-    </configuration>
-    <configuration name="status_code_test" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Simple-Web-Server" TARGET_NAME="status_code_test" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Simple-Web-Server" RUN_TARGET_NAME="status_code_test">
-      <envs />
-    </configuration>
-    <list size="7">
+    <list size="3">
       <item index="0" class="java.lang.String" itemvalue="Application.Build All" />
       <item index="1" class="java.lang.String" itemvalue="Application.http_examples" />
       <item index="2" class="java.lang.String" itemvalue="Application.https_examples" />
-      <item index="3" class="java.lang.String" itemvalue="Application.crypto_test" />
-      <item index="4" class="java.lang.String" itemvalue="Application.io_test" />
-      <item index="5" class="java.lang.String" itemvalue="Application.parse_test" />
-      <item index="6" class="java.lang.String" itemvalue="Application.status_code_test" />
     </list>
   </component>
   <component name="ShelveChangesManager" show_recycled="false">
@@ -212,12 +213,12 @@
       <updated>1544077303988</updated>
       <workItem from="1544077305322" duration="426000" />
       <workItem from="1544077734904" duration="560000" />
-      <workItem from="1544078312323" duration="3416000" />
+      <workItem from="1544078312323" duration="5600000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="4402000" />
+    <option name="totallyTimeSpent" value="6586000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="30" y="22" width="1440" height="878" extended-state="0" />
@@ -251,7 +252,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="1" />
+      <option name="time" value="2" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -337,6 +338,24 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/https_examples.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3933">
+          <caret line="208" column="48" lean-forward="false" selection-start-line="208" selection-start-column="42" selection-end-line="208" selection-end-column="48" />
+          <folding>
+            <element signature="e#222#243#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server_http.hpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-132">
+          <caret line="109" column="64" lean-forward="false" selection-start-line="109" selection-start-column="42" selection-end-line="109" selection-end-column="64" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/engine/engine.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="304">
@@ -347,8 +366,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/http_examples.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="371">
-          <caret line="60" column="18" lean-forward="false" selection-start-line="60" selection-start-column="18" selection-end-line="60" selection-end-column="18" />
+        <state relative-caret-position="165">
+          <caret line="43" column="56" lean-forward="false" selection-start-line="43" selection-start-column="56" selection-end-line="43" selection-end-column="56" />
           <folding>
             <element signature="e#91#137#0" expanded="true" />
           </folding>
