@@ -1,1 +1,0 @@
-/usr/bin/c++    -rdynamic CMakeFiles/crypto_test.dir/crypto_test.cpp.o  -o crypto_test -lpthread -lboost_system -lboost_thread -lboost_chrono -lboost_date_time -lboost_atomic -lpthread -lssl -lcrypto 

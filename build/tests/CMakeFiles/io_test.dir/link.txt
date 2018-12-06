@@ -1,1 +1,0 @@
-/usr/bin/c++    -rdynamic CMakeFiles/io_test.dir/io_test.cpp.o  -o io_test -lpthread -lboost_system -lboost_thread -lboost_chrono -lboost_date_time -lboost_atomic -lpthread -lssl -lcrypto 

@@ -29,8 +29,6 @@ openssl/sha.h
 -
 
 /root/flights_backend/https_examples.cpp
-client_https.hpp
-/root/flights_backend/client_https.hpp
 server_https.hpp
 /root/flights_backend/server_https.hpp
 boost/property_tree/json_parser.hpp

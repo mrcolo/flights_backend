@@ -3,8 +3,6 @@ cmake_minimum_required (VERSION 3.0)
 project (Simple-Web-Server)
 
 option(USE_STANDALONE_ASIO "set ON to use standalone Asio instead of Boost.Asio" OFF)
-option(BUILD_TESTING "set ON to build library tests" OFF)
-
 if(NOT MSVC)
     add_compile_options(-std=c++11 -Wall -Wextra -Wsign-conversion)
 else()
@@ -66,12 +64,8 @@ if("${CMAKE_SOURCE_DIR}" STREQUAL "${CMAKE_CURRENT_SOURCE_DIR}")
         target_include_directories(https_examples PRIVATE ${Boost_INCLUDE_DIR})
     endif()
     
-    set(BUILD_TESTING ON)
+    
     
     install(FILES server_http.hpp server_https.hpp crypto.hpp utility.hpp status_code.hpp DESTINATION include/simple-web-server)
 endif()
 
-if(BUILD_TESTING)
-    enable_testing()
-    add_subdirectory(tests)
-endif()

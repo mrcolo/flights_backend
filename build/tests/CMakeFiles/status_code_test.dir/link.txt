@@ -1,1 +1,0 @@
-/usr/bin/c++    -rdynamic CMakeFiles/status_code_test.dir/status_code_test.cpp.o  -o status_code_test -lpthread -lboost_system -lboost_thread -lboost_chrono -lboost_date_time -lboost_atomic -lpthread -lssl -lcrypto 

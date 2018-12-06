@@ -68,6 +68,18 @@ install/strip/fast: preinstall/fast
 	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
 .PHONY : install/strip/fast
 
+# Special rule for the target install/local
+install/local: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local
+
+# Special rule for the target install/local
+install/local/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local/fast
+
 # Special rule for the target install
 install: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
@@ -89,29 +101,6 @@ list_install_components:
 list_install_components/fast: list_install_components
 
 .PHONY : list_install_components/fast
-
-# Special rule for the target install/local
-install/local: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local
-
-# Special rule for the target install/local
-install/local/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local/fast
-
-# Special rule for the target test
-test:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running tests..."
-	/usr/bin/ctest --force-new-ctest-process $(ARGS)
-.PHONY : test
-
-# Special rule for the target test
-test/fast: test
-
-.PHONY : test/fast
 
 # Special rule for the target edit_cache
 edit_cache:
@@ -168,19 +157,6 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named http_examples
-
-# Build rule for target.
-http_examples: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 http_examples
-.PHONY : http_examples
-
-# fast build rule for target.
-http_examples/fast:
-	$(MAKE) -f CMakeFiles/http_examples.dir/build.make CMakeFiles/http_examples.dir/build
-.PHONY : http_examples/fast
-
-#=============================================================================
 # Target rules for targets named https_examples
 
 # Build rule for target.
@@ -194,56 +170,17 @@ https_examples/fast:
 .PHONY : https_examples/fast
 
 #=============================================================================
-# Target rules for targets named parse_test
+# Target rules for targets named http_examples
 
 # Build rule for target.
-parse_test: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 parse_test
-.PHONY : parse_test
+http_examples: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 http_examples
+.PHONY : http_examples
 
 # fast build rule for target.
-parse_test/fast:
-	$(MAKE) -f tests/CMakeFiles/parse_test.dir/build.make tests/CMakeFiles/parse_test.dir/build
-.PHONY : parse_test/fast
-
-#=============================================================================
-# Target rules for targets named status_code_test
-
-# Build rule for target.
-status_code_test: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 status_code_test
-.PHONY : status_code_test
-
-# fast build rule for target.
-status_code_test/fast:
-	$(MAKE) -f tests/CMakeFiles/status_code_test.dir/build.make tests/CMakeFiles/status_code_test.dir/build
-.PHONY : status_code_test/fast
-
-#=============================================================================
-# Target rules for targets named io_test
-
-# Build rule for target.
-io_test: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 io_test
-.PHONY : io_test
-
-# fast build rule for target.
-io_test/fast:
-	$(MAKE) -f tests/CMakeFiles/io_test.dir/build.make tests/CMakeFiles/io_test.dir/build
-.PHONY : io_test/fast
-
-#=============================================================================
-# Target rules for targets named crypto_test
-
-# Build rule for target.
-crypto_test: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 crypto_test
-.PHONY : crypto_test
-
-# fast build rule for target.
-crypto_test/fast:
-	$(MAKE) -f tests/CMakeFiles/crypto_test.dir/build.make tests/CMakeFiles/crypto_test.dir/build
-.PHONY : crypto_test/fast
+http_examples/fast:
+	$(MAKE) -f CMakeFiles/http_examples.dir/build.make CMakeFiles/http_examples.dir/build
+.PHONY : http_examples/fast
 
 engine/engine.o: engine/engine.cpp.o
 
@@ -333,18 +270,13 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... install/strip"
-	@echo "... install"
-	@echo "... list_install_components"
-	@echo "... http_examples"
-	@echo "... https_examples"
 	@echo "... install/local"
-	@echo "... test"
+	@echo "... install"
+	@echo "... https_examples"
+	@echo "... http_examples"
+	@echo "... list_install_components"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... parse_test"
-	@echo "... status_code_test"
-	@echo "... io_test"
-	@echo "... crypto_test"
 	@echo "... engine/engine.o"
 	@echo "... engine/engine.i"
 	@echo "... engine/engine.s"
