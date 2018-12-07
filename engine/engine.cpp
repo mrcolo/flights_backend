@@ -165,32 +165,35 @@ void engine::loadGraph(){
         adj_matrix[to][from] = (int)(v_routes[j].getTime()*100);
     }
 
-    int* previous = new int[airport_size];
+
+
+    auto previous = new int[airport_size];
+
     for(int i = 0; i < airport_size; i++)
         previous[i] = -1;
 
-
-    int source = airport_name["BLQ"];
-
+    int source = airport_name["LAX"];
     computeDijkstra(source, previous);
+    std::vector<int> results[airport_size];
 
-    std::vector<int> results;
-    int target = airport_name["LAX"];
+    for(int z = 0; z < airport_size; z++){
 
-    for(int i = target; i != source; i = previous[i]){
-        results.push_back(i);
+        int target = z;
+
+        for(int i = target; i != source; i = previous[i]){
+            results[z].push_back(i);
+        }
+
+        results[z].push_back(source);
+
+        for(unsigned long i = results[z].size() - 1; i > 0; --i){
+            std::cout<<airport_pos[results[z][i]]<<" -> ";
+        }
+
+        std::cout<<airport_pos[target]<<std::endl;
+
+        std::cout<<'\n';
     }
-
-    results.push_back(source);
-
-
-    for(unsigned long i = results.size() - 1; i > 0; --i){
-        std::cout<<airport_pos[results[i]]<<" -> ";
-    }
-
-    std::cout<<airport_pos[target]<<std::endl;
-
-    std::cout<<'\n';
 
     delete previous;
 
