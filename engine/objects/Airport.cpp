@@ -3,41 +3,33 @@
 //
 
 #include "Airport.h"
-#include <iostream>
-Airport::Airport(std::string i, std::string n, double la, double ln){
-    iata_code = i;
-    name = n;
-    lat = la;
-    lng = ln;
-}
 
-Airport::~Airport(){
-
-}
-
-
-
-Airport::Airport( const Airport& a ){
-    lat = a.lat;
-    lng = a.lng;
+Airport::Airport(const Airport& a) {
     iata_code = a.iata_code;
     name = a.name;
+    lat = a.lat;
+    lng = a.lng;
 }
 
-std::string Airport::Iata(){
+Airport& Airport::operator=(const Airport &other) {
+    if (this != &other) {
+        iata_code = other.iata_code;
+        name = other.name;
+        lat = other.lat;
+        lng = other.lng;
+    }
+    return *this;
+}
+
+Airport::~Airport() = default;
+
+std::string Airport::Iata() {
     return iata_code;
 }
-std::string Airport::Name(){
+
+std::string Airport::Name() {
     return name;
 }
-
-Airport& Airport::operator= (const Airport &other){
-    lat = other.lat;
-    lng = other.lng;
-    iata_code = other.iata_code;
-    name = other.name;
-}
-
 
 double Airport::Lat(){
     return lat;

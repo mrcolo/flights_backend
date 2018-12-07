@@ -7,39 +7,32 @@
 #include <iostream>
 
 class Route {
-
 public:
-    Route(std::string& a_name,
-          std::string& a_iata,
-          std::string& s_name,
-          std::string& s_iata,
-          double& s_lat,
-          double& s_lng,
-          std::string& d_name,
-          std::string& d_iata,
-          double& d_lat,
-          double& d_lng,
-          double& dis, double& hrs
-          );
-
-    void output();
-    std::string getFrom();
-    std::string getTo();
-    double getTime();
-
+    Route(
+        std::string& a_name, std::string& a_iata,
+        std::string& s_name, std::string& s_iata,
+        double& s_lat, double& s_lng,
+        std::string& d_name, std::string& d_iata,
+        double& d_lat, double& d_lng,
+        double& dis, double& hrs);
     ~Route();
 
+    std::string getFrom();
+    std::string getTo();
+    double getDistance();
+    double getTime();
+    void output();
+
 private:
-    std::string airline_name,
-                airline_iata,
-                source_name,
-                source_iata,
-                destination_name,
-                destination_iata;
+    std::string
+        airline_name, airline_iata,
+        source_name, source_iata,
+        destination_name, destination_iata;
 
-    double source_lat,source_lng,destination_lat,destination_lng,distances_mi,times_hr;
-
+    double
+        source_lat, source_lng,
+        destination_lat, destination_lng,
+        distances_mi, times_hr;
 };
-
 
 #endif //SIMPLE_WEB_SERVER_ROUTE_H
