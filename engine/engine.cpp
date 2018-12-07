@@ -11,7 +11,6 @@ typedef std::pair<int, int> iPair;
 
 engine::engine(){
 
-
     std::cout<<"Starting to load the engine..."<<std::endl;
     loadData(AIRPORTS);
     loadData(ROUTES);
@@ -29,7 +28,7 @@ engine::engine(){
 
     loadGraph();
     std::cout<<"Processed data..."<<std::endl;
-    //airports_json = processJsonAirports();
+    airports_json = processJsonAirports();
     std::cout<<"Json is ready."<<std::endl;
 
 }
@@ -78,7 +77,7 @@ void engine::loadAirports(std::vector<std::vector<std::string>>& airports){
 
             airport_pos[j] = airports[j][0];
             airport_name[airports[j][0]] = j;
-            //v_airports.emplace_back(Airport(airports[j][0],airports[j][1],lat,lng));
+            v_airports.push_back(Airport(airports[j][0],airports[j][1],lat,lng));
         }
 
     }
@@ -164,13 +163,13 @@ void engine::loadGraph(){
         adj_matrix[to][from] = (int)(v_routes[j].getTime()*100);
     }
 
-    computeDijkstra(airport_name["LAX"]);
+    computeDijkstra(airport_name["BLQ"]);
 
     //printGraph();
 }
 
 void engine::printGraph(){
-    int one = airport_name["BWI"], two = airport_name["LAX"];
+    int one = airport_name["BLQ"], two = airport_name["MEL"];
     std::cout<<"DEMO: "<<adj_matrix[one][two]<<std::endl;
     std::cout<<'\t';
 
@@ -189,8 +188,7 @@ void engine::printGraph(){
                 std::cout<< std::setw(5)<< 'X';
 
         }
-
-        printf("\n");
+        std::cout<<"\n";
     }
 }
 
@@ -261,7 +259,6 @@ void engine::loadData(DATASET d){
         else
             loadAirports(data);
     }
-
     i.close();
 }
 
@@ -302,6 +299,7 @@ void engine::computeDijkstra(int src){
 
     //Iterate through all the airports.
     for (int count = 0; count < airport_size - 1; count++){
+
         //pick adjacent vertex with the minimum distance.
         int u = minDistance(this, distances, sptSet);
 
