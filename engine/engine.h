@@ -51,7 +51,7 @@ private:
     int printSolution(int dist[]);
     void loadGraph();
     void printGraph();
-    void computeDijkstra(int src);
+    void computeDijkstra(int src, int* &directions);
 };
 
 #endif //SIMPLE_WEB_SERVER_ENGINE_H

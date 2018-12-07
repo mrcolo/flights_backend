@@ -54,12 +54,12 @@ std::string engine::getAirports(){
 
 void engine::openAirports(std::ifstream& i){
 //    i.open("../data/airports_iata.csv");
-    i.open("./data/airports_iata.csv");
+    i.open("../data/airports_iata.csv");
 }
 
 void engine::openRoutes(std::ifstream& i){
 //    i.open("../data/routes_final.csv");
-    i.open("./data/routes_final.csv");
+    i.open("../data/routes_final.csv");
 }
 
 void engine::loadAirports(std::vector<std::vector<std::string>>& airports){
@@ -165,13 +165,40 @@ void engine::loadGraph(){
         adj_matrix[to][from] = (int)(v_routes[j].getTime()*100);
     }
 
-    computeDijkstra(airport_name["BLQ"]);
+    int* previous = new int[airport_size];
+    for(int i = 0; i < airport_size; i++)
+        previous[i] = -1;
+
+
+    int source = airport_name["BLQ"];
+
+    computeDijkstra(source, previous);
+
+    std::vector<int> results;
+    int target = airport_name["LAX"];
+
+    for(int i = target; i != source; i = previous[i]){
+        results.push_back(i);
+    }
+
+    results.push_back(source);
+
+
+    for(unsigned long i = results.size() - 1; i > 0; --i){
+        std::cout<<airport_pos[results[i]]<<" -> ";
+    }
+
+    std::cout<<airport_pos[target]<<std::endl;
+
+    std::cout<<'\n';
+
+    delete previous;
 
     //printGraph();
 }
 
 void engine::printGraph(){
-    int one = airport_name["BLQ"], two = airport_name["MEL"];
+    int one = airport_name["LAX"], two = airport_name["MEL"];
     std::cout<<"DEMO: "<<adj_matrix[one][two]<<std::endl;
     std::cout<<'\t';
 
@@ -282,7 +309,7 @@ int engine::printSolution(int dist[]) {
     }
 }
 
-void engine::computeDijkstra(int src){
+void engine::computeDijkstra(int src,int* &previous){
 
     //shortest path tree
     int distances[airport_size];
@@ -302,29 +329,31 @@ void engine::computeDijkstra(int src){
     //Iterate through all the airports.
 
 //TODO think about the -1 in airport_size
-    for (int count = 0; count < airport_size; ++count) {
-        //pick adjacent vertex with the minimum distance.
-        int u = minDistance(this, distances, sptSet);
 
+    for (int count = 0; count < airport_size - 1; ++count) {
+        //pick adjacent vertex with the minimum distance.
+        //This is the current node.
+        int current = minDistance(this, distances, sptSet);
         // Mark the picked vertex as processed
-        sptSet[u] = true;
+        sptSet[current] = true;
 
         // Visit adjacent vertices and change their values
         // (such as from infinite to another number).
-        for (int v = 0; v < airport_size; ++v) {
+        for (int adj = 0; adj < airport_size; ++adj) {
             // Assign new value to adjacent if:
             //   1. The vertex was not visited yet.
             //   2. The path is actually shorter than the one that was already there.
-            if (!sptSet[v] &&
-                adj_matrix[u][v] &&
-                distances[u] != INT_MAX &&
-                distances[u] + adj_matrix[u][v] < distances[v])
+            if (!sptSet[adj] &&
+                adj_matrix[current][adj] &&
+                distances[adj] == INT_MAX &&
+                distances[current] + adj_matrix[current][adj] < distances[adj])
             {
+                previous[adj] = current;
                 // change the value!
-                distances[v] = distances[u] + adj_matrix[u][v];
+                distances[adj] = distances[current] + adj_matrix[current][adj];
             }
         }
     }
 
-    printSolution(distances);
+    //printSolution(distances);
 }
