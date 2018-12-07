@@ -22,7 +22,7 @@ engine::engine(){
 
     for (int j = 0; j < airport_size; ++j) {
         for (int v = 0; v < airport_size; ++v) {
-            adj_matrix[j][v] = NULL;
+            adj_matrix[j][v] = 0;
         }
     }
 
@@ -165,8 +165,6 @@ void engine::loadGraph(){
         adj_matrix[to][from] = (int)(v_routes[j].getTime()*100);
     }
 
-
-
     auto previous = new int[airport_size];
 
     for(int i = 0; i < airport_size; i++)
@@ -175,24 +173,32 @@ void engine::loadGraph(){
     int source = airport_name["LAX"];
     computeDijkstra(source, previous);
     std::vector<int> results[airport_size];
-
     for(int z = 0; z < airport_size; z++){
-
         int target = z;
+        std::cout<<airport_pos[source]<<" TO "<<airport_pos[target]<<std::endl;
 
+        //Push the itinerary.
         for(int i = target; i != source; i = previous[i]){
-            results[z].push_back(i);
-        }
+            if(airport_pos[i] != "" )
+                results[z].push_back(i);
+            else{
+                results[z].clear();
+                break;
+            }
 
+        }
+        //Finally, push the source in the stack.
         results[z].push_back(source);
 
+        //Cout result.
         for(unsigned long i = results[z].size() - 1; i > 0; --i){
-            std::cout<<airport_pos[results[z][i]]<<" -> ";
+            std::cout<<"("<<airport_pos[results[z][i]]<<")"<<" -> ";
         }
 
-        std::cout<<airport_pos[target]<<std::endl;
+        std::cout<<"("<<airport_pos[target]<<")";
 
         std::cout<<'\n';
+
     }
 
     delete previous;
