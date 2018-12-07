@@ -20,7 +20,7 @@ using boost::property_tree::write_json;
 
 enum DATASET {AIRPORTS, ROUTES};
 class engine {
-
+    friend int minDistance(engine* e, int dist[], bool sptSet[]);
     public:
         engine();
         ~engine();
@@ -47,9 +47,10 @@ class engine {
         void loadAirports(std::vector<std::vector<std::string>>& airports);
         void loadRoutes(std::vector<std::vector<std::string>>& routes);
 
+        int printSolution(int dist[], int n);
         void loadGraph();
         void printGraph();
-        void computeDijkstra(double s_lat, double s_lng, double e_lat, double e_lng);
+        void computeDijkstra(int src);
 
 };
 

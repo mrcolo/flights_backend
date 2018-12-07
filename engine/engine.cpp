@@ -6,6 +6,9 @@
 #include <vector>
 #include <sstream>
 #include <fstream>
+#include <queue>
+typedef std::pair<int, int> iPair;
+
 engine::engine(){
 
 
@@ -20,7 +23,7 @@ engine::engine(){
 
     for (int j = 0; j < airport_size; ++j) {
         for (int v = 0; v < airport_size; ++v) {
-            adj_matrix[j][v] = INT_MAX;
+            adj_matrix[j][v] = NULL;
         }
     }
 
@@ -161,11 +164,13 @@ void engine::loadGraph(){
         adj_matrix[to][from] = (int)(v_routes[j].getTime()*100);
     }
 
-    printGraph();
+    computeDijkstra(airport_name["LAX"]);
+
+    //printGraph();
 }
 
 void engine::printGraph(){
-    int one = airport_name["LAX"], two = airport_name["JFK"];
+    int one = airport_name["BWI"], two = airport_name["LAX"];
     std::cout<<"DEMO: "<<adj_matrix[one][two]<<std::endl;
     std::cout<<'\t';
 
@@ -187,7 +192,6 @@ void engine::printGraph(){
 
         printf("\n");
     }
-
 }
 
 std::string engine::processJsonAirports(){
@@ -208,7 +212,6 @@ std::string engine::processJsonAirports(){
     write_json(ss, arr);
     return ss.str();
 }
-
 
 std::vector<std::string> getNextLineAndSplitIntoTokens(std::istream& str){
     std::vector<std::string>   result;
@@ -262,41 +265,65 @@ void engine::loadData(DATASET d){
     i.close();
 }
 
-void engine::computeDijkstra(double s_lat, double s_lng, double e_lat, double e_lng){
-//    int dist[airport_size];     // The output array.  dist[i] will hold the shortest
-//    // distance from src to i
-//
-//    bool sptSet[airport_size]; // sptSet[i] will be true if vertex i is included in shortest
-//    // path tree or shortest distance from src to i is finalized
-//
-//    // Initialize all distances as INFINITE and stpSet[] as false
-//    for (int i = 0; i < airport_size; i++)
-//        dist[i] = INT_MAX, sptSet[i] = false;
-//
-//    // Distance of source vertex from itself is always 0
-//    dist[src] = 0;
-//
-//    // Find shortest path for all vertices
-//    for (int count = 0; count < airport_size-1; count++)
-//    {
-//        // Pick the minimum distance vertex from the set of vertices not
-//        // yet processed. u is always equal to src in the first iteration.
-//        int u = minDistance(dist, sptSet);
-//
-//        // Mark the picked vertex as processed
-//        sptSet[u] = true;
-//
-//        // Update dist value of the adjacent vertices of the picked vertex.
-//        for (int v = 0; v < airport_size; v++)
-//
-//            // Update dist[v] only if is not in sptSet, there is an edge from
-//            // u to v, and total weight of path from src to  v through u is
-//            // smaller than current value of dist[v]
-//            if (!sptSet[v] && adj_matrix[u][v] && dist[u] != INT_MAX
-//                && dist[u]+ adj_matrix[u][v] < dist[v])
-//                dist[v] = dist[u] + adj_matrix[u][v];
-//    }
+int minDistance(engine* e, int dist[], bool sptSet[]){
+    // Initialize min value
+    int min = INT_MAX, min_index;
 
-    // print the constructed distance array
-    //printSolution(dist, V);
+    for (int v = 0; v < e->airport_size; v++)
+        if (!sptSet[v] && dist[v] <= min)
+            min = dist[v], min_index = v;
+
+    return min_index;
+}
+
+int engine::printSolution(int dist[], int n){
+    for (int i = 0; i < airport_size; i++){
+        if(dist[i] != INT_MAX) {
+            std::cout << "For " << airport_pos[i] << std::endl;
+            std::cout << '\t' << "Approximately " << dist[i] / 100 << " Hours." << std::endl;
+        }
+    }
+}
+
+void engine::computeDijkstra(int src){
+
+    //shortest path tree
+    int distances[airport_size];
+
+    //true if it was visited
+    bool sptSet[airport_size];
+
+    //All vertexes are initialized as infinite. nothing is visited.
+    for (int i = 0; i < airport_size; i++)
+        distances[i] = INT_MAX, sptSet[i] = false;
+
+    //First distance is 0...we are already here.
+    distances[src] = 0;
+
+    //Iterate through all the airports.
+    for (int count = 0; count < airport_size - 1; count++){
+        //pick adjacent vertex with the minimum distance.
+        int u = minDistance(this, distances, sptSet);
+
+        // Mark the picked vertex as processed
+        sptSet[u] = true;
+
+        // Visit adjacent vertices and change their values
+        // ( such as from infinite to another number).
+        for (int v = 0; v < airport_size; v++)
+            // Assign new value to adjacent if:
+            // 1.The vertex was not visited yet.
+            // 2.The path is actually shorter than the one that was already there.
+            if (!sptSet[v] /* not visited */ &&
+                    adj_matrix[u][v] /* value is not null*/&&
+                    distances[u] != INT_MAX && /* the distance is not infinity.
+ *                                                meaning, we haven't visited it yet.*/
+                    distances[u]+ adj_matrix[u][v] < distances[v] /* The distance of the minimum that we picked
+ *                                                                  is actually smaller than the recorded one. */
+                    )
+                //change the value!
+                distances[v] = distances[u] + adj_matrix[u][v];
+    }
+
+    printSolution(distances, airport_size);
 }
