@@ -33,6 +33,11 @@ class engine {
         std::vector<Airport> v_airports;
         std::vector<Route> v_routes;
         std::string airports_json;
+        std::map<int,std::string> airport_pos;
+        std::map<std::string,int> airport_name;
+
+        int** adj_matrix;
+        size_t airport_size;
 
         void loadData(DATASET d);
 
@@ -42,6 +47,8 @@ class engine {
         void loadAirports(std::vector<std::vector<std::string>>& airports);
         void loadRoutes(std::vector<std::vector<std::string>>& routes);
 
+        void loadGraph();
+        void printGraph();
         void computeDijkstra(double s_lat, double s_lng, double e_lat, double e_lng);
 
 };

@@ -32,6 +32,18 @@ Route::Route(std::string& a_name,
 
 }
 
+std::string Route::getFrom(){
+    return source_iata;
+}
+
+double Route::getTime(){
+    return times_hr;
+}
+
+std::string Route::getTo(){
+    return destination_iata;
+}
+
 void Route::output(){
     std::cout<<source_name<<" to "<<destination_name<<std::endl;
 }

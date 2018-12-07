@@ -23,6 +23,9 @@ public:
           );
 
     void output();
+    std::string getFrom();
+    std::string getTo();
+    double getTime();
 
     ~Route();
 
