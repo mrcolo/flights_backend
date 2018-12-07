@@ -19,40 +19,39 @@ using boost::property_tree::read_json;
 using boost::property_tree::write_json;
 
 enum DATASET {AIRPORTS, ROUTES};
+
 class engine {
+public:
+    engine();
+    ~engine();
+    engine( const engine& a );
+
+    void getMe(std::string start, std::string end);
+    std::string getAirports();
     friend int minDistance(engine* e, int dist[], bool sptSet[]);
-    public:
-        engine();
-        ~engine();
-        engine( const engine& a );
 
-        void getMe(std::string start, std::string end);
+private:
+    std::vector<Airport> v_airports;
+    std::vector<Route> v_routes;
+    std::string airports_json;
+    std::map<int,std::string> airport_pos;
+    std::map<std::string,int> airport_name;
 
-        std::string getAirports();
-    private:
-        std::vector<Airport> v_airports;
-        std::vector<Route> v_routes;
-        std::string airports_json;
-        std::map<int,std::string> airport_pos;
-        std::map<std::string,int> airport_name;
+    int** adj_matrix;
+    int airport_size;
 
-        int** adj_matrix;
-        size_t airport_size;
+    void loadData(DATASET d);
 
-        void loadData(DATASET d);
+    std::string processJsonAirports();
+    void openAirports(std::ifstream& i);
+    void openRoutes(std::ifstream& i);
+    void loadAirports(std::vector<std::vector<std::string>>& airports);
+    void loadRoutes(std::vector<std::vector<std::string>>& routes);
 
-        std::string processJsonAirports();
-        void openAirports(std::ifstream& i);
-        void openRoutes(std::ifstream& i);
-        void loadAirports(std::vector<std::vector<std::string>>& airports);
-        void loadRoutes(std::vector<std::vector<std::string>>& routes);
-
-        int printSolution(int dist[], int n);
-        void loadGraph();
-        void printGraph();
-        void computeDijkstra(int src);
-
+    int printSolution(int dist[]);
+    void loadGraph();
+    void printGraph();
+    void computeDijkstra(int src);
 };
-
 
 #endif //SIMPLE_WEB_SERVER_ENGINE_H

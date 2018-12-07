@@ -53,11 +53,13 @@ std::string engine::getAirports(){
 }
 
 void engine::openAirports(std::ifstream& i){
-    i.open("../data/airports_iata.csv");
+//    i.open("../data/airports_iata.csv");
+    i.open("./data/airports_iata.csv");
 }
 
 void engine::openRoutes(std::ifstream& i){
-    i.open("../data/routes_final.csv");
+//    i.open("../data/routes_final.csv");
+    i.open("./data/routes_final.csv");
 }
 
 void engine::loadAirports(std::vector<std::vector<std::string>>& airports){
@@ -227,57 +229,55 @@ std::vector<std::string> getNextLineAndSplitIntoTokens(std::istream& str){
     if (!lineStream && cell.empty())
     {
         // If there was a trailing comma then add an empty element.
-        result.push_back("");
+        result.emplace_back("");
     }
 
     return result;
 }
 
 void engine::loadData(DATASET d){
-
     std::ifstream i;
-    if(d)
-        openRoutes(i);
-    else
-        openAirports(i);
 
-    if(i){
+    d ? openRoutes(i) : openAirports(i);
+
+    if (i) {
         std::vector<std::vector<std::string>> data;
-
-        std::string line;
+        std::string line, header;
         std::stringstream ss;
 
-        while(std::getline(i, line)){
+        // first get rid of header line
+        std::getline(i, header);
+
+        while(std::getline(i, line)) {
             ss << line;
             data.push_back(getNextLineAndSplitIntoTokens(ss));
             ss.clear();
         }
 
-
-        if(d)
-            loadRoutes(data);
-        else
-            loadAirports(data);
+        d ? loadRoutes(data) : loadAirports(data);
     }
     i.close();
 }
 
-int minDistance(engine* e, int dist[], bool sptSet[]){
+int minDistance(engine* e, int dist[], bool sptSet[]) {
     // Initialize min value
-    int min = INT_MAX, min_index;
+    int min = INT_MAX, min_index = 0;
 
     for (int v = 0; v < e->airport_size; v++)
-        if (!sptSet[v] && dist[v] <= min)
-            min = dist[v], min_index = v;
+        if (!sptSet[v] && dist[v] <= min) {
+            min = dist[v];
+            min_index = v;
+        }
 
     return min_index;
 }
 
-int engine::printSolution(int dist[], int n){
-    for (int i = 0; i < airport_size; i++){
-        if(dist[i] != INT_MAX) {
-            std::cout << "For " << airport_pos[i] << std::endl;
-            std::cout << '\t' << "Approximately " << dist[i] / 100 << " Hours." << std::endl;
+int engine::printSolution(int dist[]) {
+    for (int i = 0; i < airport_size; i++) {
+        if (dist[i] != INT_MAX) {
+            std::cout << "For " << airport_pos[i] << std::endl
+                      << "\tApproximately " << dist[i] / 100 << " hours."
+                      << std::endl;
         }
     }
 }
@@ -291,15 +291,18 @@ void engine::computeDijkstra(int src){
     bool sptSet[airport_size];
 
     //All vertexes are initialized as infinite. nothing is visited.
-    for (int i = 0; i < airport_size; i++)
-        distances[i] = INT_MAX, sptSet[i] = false;
+    for (int i = 0; i < airport_size; i++) {
+        distances[i] = INT_MAX;
+        sptSet[i] = false;
+    }
 
     //First distance is 0...we are already here.
     distances[src] = 0;
 
     //Iterate through all the airports.
-    for (int count = 0; count < airport_size - 1; count++){
 
+//TODO think about the -1 in airport_size
+    for (int count = 0; count < airport_size; ++count) {
         //pick adjacent vertex with the minimum distance.
         int u = minDistance(this, distances, sptSet);
 
@@ -307,21 +310,21 @@ void engine::computeDijkstra(int src){
         sptSet[u] = true;
 
         // Visit adjacent vertices and change their values
-        // ( such as from infinite to another number).
-        for (int v = 0; v < airport_size; v++)
+        // (such as from infinite to another number).
+        for (int v = 0; v < airport_size; ++v) {
             // Assign new value to adjacent if:
-            // 1.The vertex was not visited yet.
-            // 2.The path is actually shorter than the one that was already there.
-            if (!sptSet[v] /* not visited */ &&
-                    adj_matrix[u][v] /* value is not null*/&&
-                    distances[u] != INT_MAX && /* the distance is not infinity.
- *                                                meaning, we haven't visited it yet.*/
-                    distances[u]+ adj_matrix[u][v] < distances[v] /* The distance of the minimum that we picked
- *                                                                  is actually smaller than the recorded one. */
-                    )
-                //change the value!
+            //   1. The vertex was not visited yet.
+            //   2. The path is actually shorter than the one that was already there.
+            if (!sptSet[v] &&
+                adj_matrix[u][v] &&
+                distances[u] != INT_MAX &&
+                distances[u] + adj_matrix[u][v] < distances[v])
+            {
+                // change the value!
                 distances[v] = distances[u] + adj_matrix[u][v];
+            }
+        }
     }
 
-    printSolution(distances, airport_size);
+    printSolution(distances);
 }
