@@ -157,6 +157,9 @@ void engine::loadRoutes(std::vector<std::vector<std::string>>& routes){
 
 void engine::loadGraph(){
 
+    std::ofstream out;
+    out.open("result.txt");
+
     for(int j = 0; j < v_routes.size(); ++j){
         int from = airport_name[v_routes[j].getFrom()];
         int to = airport_name[v_routes[j].getTo()];
@@ -167,42 +170,56 @@ void engine::loadGraph(){
 
     auto previous = new int[airport_size];
 
-    for(int i = 0; i < airport_size; i++)
-        previous[i] = -1;
+    //Sources
+    for(int x = 0; x < airport_size; x++){
+        for(int i = 0; i < airport_size; i++)
+            previous[i] = -1;
 
-    int source = airport_name["LAX"];
-    computeDijkstra(source, previous);
-    std::vector<int> results[airport_size];
-    for(int z = 0; z < airport_size; z++){
-        int target = z;
-        std::cout<<airport_pos[source]<<" TO "<<airport_pos[target]<<std::endl;
+        int source = x;
+        computeDijkstra(source, previous);
+        std::vector<int> results[airport_size];
+        //Targets
+        for(int z = 0; z < airport_size; z++){
+            int target = z;
 
-        //Push the itinerary.
-        for(int i = target; i != source; i = previous[i]){
-            if(airport_pos[i] != "" )
-                results[z].push_back(i);
-            else{
-                results[z].clear();
-                break;
+            //Push the itinerary.
+            for(int i = target; i != source; i = previous[i]){
+                if(airport_pos[i] != "" )
+                    results[z].push_back(i);
+                else{
+                    results[z].clear();
+                    break;
+                }
             }
 
+            if(results[z].size() != 0){
+                std::cout<<airport_pos[source]<<" TO "<<airport_pos[target]<<std::endl;
+                out<<airport_pos[source]<<" TO "<<airport_pos[target]<<std::endl;
+
+                //Finally, push the source in the stack.
+                results[z].push_back(source);
+
+                //out result.
+                for(unsigned long i = results[z].size() - 1; i > 0; --i){
+                    out<<"("<<airport_pos[results[z][i]]<<")"<<" -> ";
+                }
+
+                out<<"("<<airport_pos[target]<<")";
+
+                out<<'\n';
+            }
+
+
+
+
         }
-        //Finally, push the source in the stack.
-        results[z].push_back(source);
-
-        //Cout result.
-        for(unsigned long i = results[z].size() - 1; i > 0; --i){
-            std::cout<<"("<<airport_pos[results[z][i]]<<")"<<" -> ";
-        }
-
-        std::cout<<"("<<airport_pos[target]<<")";
-
-        std::cout<<'\n';
 
     }
+    
 
     delete previous;
-
+    out<<v_airports[airport_name["LAX"]].Lat()<<", "<<v_airports[airport_name["LAX"]].Long();
+    out.close();
     //printGraph();
 }
 
