@@ -49,7 +49,7 @@ engine::~engine() {
 
 std::string engine::getMe(std::string start, std::string end){
         //printProgress((100*x)/airport_size);
-
+    if(start.length() == 3 && end.length() == 3){
         auto previous = new int[airport_size];
 
         for(int i = 0; i < airport_size; i++)
@@ -78,35 +78,47 @@ std::string engine::getMe(std::string start, std::string end){
             //Finally, push the source in the stack.
             results.push_back(source);
 
-                ptree arr;
-                ptree temp;
-                //out result.
-                int count = 0;
-                for (unsigned long i = results.size() - 1; i > 0; --i) {
+            ptree arr;
+            ptree temp;
+            //out result.
+            int count = 0;
+            for (unsigned long i = results.size() - 1; i > 0; --i) {
 
-                    temp.put<std::string>("iata_code", v_airports[results[i]]->Iata());
-                    temp.put<std::string>("name", v_airports[results[i]]->Name());
-                    temp.put<double>("lat", v_airports[results[i]]->Lat());
-                    temp.put<double>("lng", v_airports[results[i]]->Long());
+                temp.put<std::string>("iata_code", v_airports[results[i]]->Iata());
+                temp.put<std::string>("name", v_airports[results[i]]->Name());
+                temp.put<double>("lat", v_airports[results[i]]->Lat());
+                temp.put<double>("lng", v_airports[results[i]]->Long());
 
-                    arr.push_back(std::make_pair(std::to_string(count), temp));
-                    count++;
-                    //DEBUG: std::cout<<"("<<airport_pos[results[i]]<<")"<<" -> ";
-                }
+                arr.push_back(std::make_pair(std::to_string(count), temp));
+                count++;
+                //DEBUG: std::cout<<"("<<airport_pos[results[i]]<<")"<<" -> ";
+            }
 
-                temp.put<std::string>("iata_code", v_airports[target]->Iata());
-                temp.put<std::string>("name", v_airports[target]->Name());
-                temp.put<double>("lat", v_airports[target]->Lat());
-                temp.put<double>("lng", v_airports[target]->Long());
-                arr.push_back(std::make_pair(std::to_string(results.size() - 1), temp));
-                std::stringstream ss;
+            temp.put<std::string>("iata_code", v_airports[target]->Iata());
+            temp.put<std::string>("name", v_airports[target]->Name());
+            temp.put<double>("lat", v_airports[target]->Lat());
+            temp.put<double>("lng", v_airports[target]->Long());
+            arr.push_back(std::make_pair(std::to_string(results.size() - 1), temp));
+            std::stringstream ss;
 
-                write_json(ss, arr);
-                std::string JSON = ss.str();
+            write_json(ss, arr);
+            std::string JSON = ss.str();
 
-                return JSON;
+            return JSON;
 
         }
+
+    }
+    else{
+        ptree temp;
+        std::stringstream ss;
+        temp.put<std::string>("auth", "false");
+        write_json(ss, temp);
+        std::string JSON = ss.str();
+
+        return JSON;
+    }
+
 }
 
 std::string engine::getAirports() {
