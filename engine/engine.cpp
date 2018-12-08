@@ -81,6 +81,7 @@ std::string engine::getMe(std::string start, std::string end){
                 ptree arr;
                 ptree temp;
                 //out result.
+                int count = 0;
                 for (unsigned long i = results.size() - 1; i > 0; --i) {
 
                     temp.put<std::string>("iata_code", v_airports[results[i]]->Iata());
@@ -88,7 +89,8 @@ std::string engine::getMe(std::string start, std::string end){
                     temp.put<double>("lat", v_airports[results[i]]->Lat());
                     temp.put<double>("lng", v_airports[results[i]]->Long());
 
-                    arr.push_back(std::make_pair(std::to_string(i), temp));
+                    arr.push_back(std::make_pair(std::to_string(count), temp));
+                    count++;
                     //DEBUG: std::cout<<"("<<airport_pos[results[i]]<<")"<<" -> ";
                 }
 
@@ -96,7 +98,7 @@ std::string engine::getMe(std::string start, std::string end){
                 temp.put<std::string>("name", v_airports[target]->Name());
                 temp.put<double>("lat", v_airports[target]->Lat());
                 temp.put<double>("lng", v_airports[target]->Long());
-                arr.push_back(std::make_pair(std::to_string(0), temp));
+                arr.push_back(std::make_pair(std::to_string(results.size() - 1), temp));
                 std::stringstream ss;
 
                 write_json(ss, arr);
