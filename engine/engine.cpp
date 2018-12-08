@@ -53,15 +53,12 @@ std::string engine::getMe(std::string start, std::string end){
         if(line == "__" + end + "__"){
             while(line != "}"){
                 std::getline(i, line);
-                ss<<line;
+                ss<<line<<"\n";
             }
         }
     }
 
     std::string JSON = ss.str();
-
-    std::cout<<JSON<<std::endl;
-
     return JSON;//str holds the content of the file
 }
 
