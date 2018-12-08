@@ -25,6 +25,7 @@ engine::engine() {
             adj_matrix[j][v] = 0;
         }
     }
+
     loadGraph();
 
     std::cout<<"Processed data..."<<std::endl;
@@ -45,12 +46,12 @@ engine::~engine() {
 
 std::string engine::getMe(std::string start, std::string end){
     std::ifstream i;
-    i.open("../data/routes/" + start + ".flight");
+    i.open("../data/routes/f.flight");
 
     std::stringstream ss;
     std::string line;
     while(std::getline(i, line)){
-        if(line == "__" + end + "__"){
+        if(line == "__" + start + "_" + end + "__"){
             while(line != "}"){
                 std::getline(i, line);
                 ss<<line<<"\n";
@@ -170,16 +171,14 @@ void engine::loadGraph(){
     }
 
     auto previous = new int[airport_size];
-
+    std::ofstream out;
+    out.open("../data/routes/f.flight");
     //Sources
-    for(unsigned long x = airport_name["BLQ"]; x < airport_name["BLQ"] + 1; x++){
+    for(unsigned long x = 0; x < airport_size; x++){
         for(int i = 0; i < airport_size; i++)
             previous[i] = -1;
+
         unsigned long source = x;
-
-
-        std::ofstream out;
-        out.open("../data/routes/" + airport_pos[source] + ".flight");
 
         computeDijkstra(source, previous);
         std::vector<int> results[airport_size];
@@ -228,7 +227,7 @@ void engine::loadGraph(){
                 std::string JSON = ss.str();
 
                 std::cout<<airport_pos[source]<<" TO "<<airport_pos[target]<<std::endl;
-                out<<"__"<<airport_pos[target]<<"__"<<std::endl;
+                out<<"__"<<airport_pos[source]<<"_"<<airport_pos[target]<<"__"<<std::endl;
 
                 out<<JSON;
 
