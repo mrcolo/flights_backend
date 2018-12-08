@@ -8,6 +8,9 @@
 #include <fstream>
 #include <queue>
 
+#define PBSTR "||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||"
+#define PBWIDTH 60
+
 engine::engine() {
 
     std::cout << "Starting to load the engine..." << std::endl;
@@ -45,22 +48,63 @@ engine::~engine() {
 }
 
 std::string engine::getMe(std::string start, std::string end){
-    std::ifstream i;
-    i.open("../data/routes/f.flight");
+        //printProgress((100*x)/airport_size);
 
-    std::stringstream ss;
-    std::string line;
-    while(std::getline(i, line)){
-        if(line == "__" + start + "_" + end + "__"){
-            while(line != "}"){
-                std::getline(i, line);
-                ss<<line<<"\n";
+        auto previous = new int[airport_size];
+
+        for(int i = 0; i < airport_size; i++)
+            previous[i] = -1;
+
+        unsigned long source = airport_name[start];
+
+        computeDijkstra(source, previous);
+
+        std::vector<int> results;
+
+        unsigned long target = airport_name[end];
+
+        //Push the itinerary.
+        for (int i = target; i != source; i = previous[i]) {
+            if (!airport_pos[i].empty())
+                results.push_back(i);
+            else {
+                results.clear();
+                break;
             }
         }
-    }
 
-    std::string JSON = ss.str();
-    return JSON;//str holds the content of the file
+        if (!results.empty()) {
+
+            //Finally, push the source in the stack.
+            results.push_back(source);
+
+                ptree arr;
+                ptree temp;
+                //out result.
+                for (unsigned long i = results.size() - 1; i > 0; --i) {
+
+                    temp.put<std::string>("iata_code", v_airports[results[i]]->Iata());
+                    temp.put<std::string>("name", v_airports[results[i]]->Name());
+                    temp.put<double>("lat", v_airports[results[i]]->Lat());
+                    temp.put<double>("lng", v_airports[results[i]]->Long());
+
+                    arr.push_back(std::make_pair(std::to_string(i), temp));
+                    //DEBUG: std::cout<<"("<<airport_pos[results[i]]<<")"<<" -> ";
+                }
+
+                temp.put<std::string>("iata_code", v_airports[target]->Iata());
+                temp.put<std::string>("name", v_airports[target]->Name());
+                temp.put<double>("lat", v_airports[target]->Lat());
+                temp.put<double>("lng", v_airports[target]->Long());
+                arr.push_back(std::make_pair(std::to_string(0), temp));
+                std::stringstream ss;
+
+                write_json(ss, arr);
+                std::string JSON = ss.str();
+
+                return JSON;
+
+        }
 }
 
 std::string engine::getAirports() {
@@ -161,6 +205,15 @@ void engine::loadRoutes(std::vector<std::vector<std::string>>& routes){
     }
 }
 
+void printProgress (double percentage)
+{
+    int val = (int) (percentage * 100);
+    int lpad = (int) (percentage * PBWIDTH);
+    int rpad = PBWIDTH - lpad;
+    printf ("\r%3d%% [%.*s%*s]", val, lpad, PBSTR, rpad, "");
+    fflush (stdout);
+}
+
 void engine::loadGraph(){
 
     for (auto &route : v_routes) {
@@ -169,75 +222,6 @@ void engine::loadGraph(){
         adj_matrix[from][to] = (int)(route.getTime()*100);
         adj_matrix[to][from] = (int)(route.getTime()*100);
     }
-
-    auto previous = new int[airport_size];
-    std::ofstream out;
-    out.open("../data/routes/f.flight");
-    //Sources
-    for(unsigned long x = 0; x < airport_size; x++){
-        for(int i = 0; i < airport_size; i++)
-            previous[i] = -1;
-
-        unsigned long source = x;
-
-        computeDijkstra(source, previous);
-        std::vector<int> results[airport_size];
-
-        //Targets
-        for (int z = 0; z < airport_size; z++) {
-            int target = z;
-
-            //Push the itinerary.
-            for (int i = target; i != source; i = previous[i]) {
-                if (!airport_pos[i].empty())
-                    results[z].push_back(i);
-                else {
-                    results[z].clear();
-                    break;
-                }
-            }
-
-            if(!results[z].empty()){
-
-                //Finally, push the source in the stack.
-                results[z].push_back(source);
-
-                ptree arr;
-                ptree temp;
-                //out result.
-                for(unsigned long i = results[z].size() - 1; i > 0; --i){
-
-                    temp.put<std::string>("iata_code", v_airports[results[z][i]]->Iata());
-                    temp.put<std::string>("name", v_airports[results[z][i]]->Name());
-                    temp.put<double>("lat", v_airports[results[z][i]]->Lat());
-                    temp.put<double>("lng",v_airports[results[z][i]]->Long());
-
-                    arr.push_back( std::make_pair(std::to_string(i), temp));
-                    //DEBUG: std::cout<<"("<<airport_pos[results[z][i]]<<")"<<" -> ";
-                }
-
-                temp.put<std::string>("iata_code", v_airports[target]->Iata());
-                temp.put<std::string>("name", v_airports[target]->Name());
-                temp.put<double>("lat", v_airports[target]->Lat());
-                temp.put<double>("lng",v_airports[target]->Long());
-                arr.push_back( std::make_pair(std::to_string(0), temp));
-                std::stringstream ss;
-
-                write_json(ss, arr);
-                std::string JSON = ss.str();
-
-                std::cout<<airport_pos[source]<<" TO "<<airport_pos[target]<<std::endl;
-                out<<"__"<<airport_pos[source]<<"_"<<airport_pos[target]<<"__"<<std::endl;
-
-                out<<JSON;
-
-            }
-
-        }
-        out.close();
-    }
-
-    delete previous;
 
     //printGraph();
 }
