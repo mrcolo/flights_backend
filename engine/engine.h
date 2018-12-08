@@ -26,18 +26,19 @@ public:
     ~engine();
     engine( const engine& a );
 
-    void getMe(std::string start, std::string end);
+    std::string getMe(std::string start, std::string end);
     std::string getAirports();
     friend int minDistance(engine* e, int dist[], bool sptSet[]);
 
 private:
-    std::vector<Airport> v_airports;
+    //std::vector<Airport> v_airports;
     std::vector<Route> v_routes;
     std::string airports_json;
     std::map<int,std::string> airport_pos;
     std::map<std::string,int> airport_name;
 
     int** adj_matrix;
+    Airport** v_airports;
     int airport_size;
 
     void loadData(DATASET d);

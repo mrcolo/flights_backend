@@ -8,6 +8,7 @@
 
 class Airport {
 public:
+    Airport();
     Airport(std::string& i, std::string& n, double& la, double& ln)
         : iata_code(i), name(n), lat(la), lng(ln) {}
     Airport(const Airport& a);

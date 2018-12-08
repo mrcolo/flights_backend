@@ -13,10 +13,10 @@ Airport::Airport(const Airport& a) {
 
 Airport& Airport::operator=(const Airport &other) {
     if (this != &other) {
-        iata_code = other.iata_code;
-        name = other.name;
-        lat = other.lat;
-        lng = other.lng;
+        //iata_code = other.iata_code;
+        //name = other.name;
+        //lat = other.lat;
+        //lng = other.lng;
     }
     return *this;
 }
@@ -38,3 +38,5 @@ double Airport::Lat(){
 double Airport::Long(){
     return lng;
 }
+
+Airport::Airport() {}

@@ -39,7 +39,7 @@ int main() {
         auto end = pt.get<string>("end");
         std::cout<<start<<" to "<<end<<std::endl;
 
-      //todo change this
+        std::string result = engine.getMe(start, end);
 
         SimpleWeb::CaseInsensitiveMultimap header;
 
@@ -49,8 +49,8 @@ int main() {
         header.emplace("Access-Control-Max-Age", "3600");
         header.emplace("Access-Control-Allow-Headers", "Content-Type, Accept, X-Requested-With, remember-me");
 
-        std::string content = "test";
-        response->write(SimpleWeb::StatusCode::success_ok,content,header);
+
+        response->write(SimpleWeb::StatusCode::success_ok,result,header);
 
 
     }
