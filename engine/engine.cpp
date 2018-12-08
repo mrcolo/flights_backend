@@ -3,90 +3,82 @@
 //
 
 #include "engine.h"
-#include <vector>
-#include <sstream>
-#include <fstream>
-#include <queue>
+
 typedef std::pair<int, int> iPair;
 
-engine::engine(){
+engine::engine() {
 
-    std::cout<<"Starting to load the engine..."<<std::endl;
+    std::cout << "Starting to load the engine..." << std::endl;
     loadData(AIRPORTS);
     loadData(ROUTES);
 
     adj_matrix = new int*[airport_size];
 
-    for(int i = 0; i < airport_size; ++i)
+    for (size_t i = 0; i < airport_size; ++i)
         adj_matrix[i] = new int[airport_size];
 
-    for (int j = 0; j < airport_size; ++j) {
-        for (int v = 0; v < airport_size; ++v) {
+    for (size_t j = 0; j < airport_size; ++j) {
+        for (size_t v = 0; v < airport_size; ++v) {
             adj_matrix[j][v] = 0;
         }
     }
 
     loadGraph();
-    std::cout<<"Processed data..."<<std::endl;
+    std::cout << "Processed data..." << std::endl;
     airports_json = processJsonAirports();
-    std::cout<<"Json is ready."<<std::endl;
+    std::cout << "Json is ready." << std::endl;
 
 }
 
-engine::~engine(){
-    for(int i = 0; i < airport_size; ++i)
+engine::~engine() {
+    for (size_t i = 0; i < airport_size; ++i)
         delete [] adj_matrix[i];
-
     delete [] adj_matrix;
 }
 
-engine::engine( const engine& a ){
+void engine::getMe(std::string start, std::string end) {
 
 }
 
-void engine::getMe(std::string start, std::string end){
-
-}
-
-std::string engine::getAirports(){
+std::string engine::getAirports() {
     return airports_json;
 }
 
-void engine::openAirports(std::ifstream& i){
+void engine::openAirports(std::ifstream& i) {
 //    i.open("../data/airports_iata.csv");
-    i.open("../data/airports_iata.csv");
+    i.open("./data/airports_iata.csv");
 }
 
-void engine::openRoutes(std::ifstream& i){
+void engine::openRoutes(std::ifstream& i) {
 //    i.open("../data/routes_final.csv");
-    i.open("../data/routes_final.csv");
+    i.open("./data/routes_final.csv");
 }
 
-void engine::loadAirports(std::vector<std::vector<std::string>>& airports){
+void engine::loadAirports(std::vector<std::vector<std::string>>& airports) {
     airport_size = airports.size();
-    for (int j = 0; j < airports.size(); ++j) {
+
+    for (size_t i = 0; i < airports.size(); ++i) {
         std::stringstream ss;
-        if(airports[j].size() == 7){
-            ss<<airports[j][2].substr(0,10);
+        if (airports[i].size() == 7){
+            ss<<airports[i][2].substr(0,10);
             double lat;
             ss>>lat;
 
             ss.clear();
 
-            ss<<airports[j][3].substr(0,10);
+            ss<<airports[i][3].substr(0,10);
             double lng;
             ss>>lng;
 
-            airport_pos[j] = airports[j][0];
-            airport_name[airports[j][0]] = j;
-            v_airports.push_back(Airport(airports[j][0],airports[j][1],lat,lng));
+            airport_pos[i] = airports[i][0];
+            airport_name[airports[i][0]] = i;
+            v_airports.emplace_back(airports[i][0],airports[i][1],lat,lng);
         }
-
     }
 }
 
 void engine::loadRoutes(std::vector<std::vector<std::string>>& routes){
-    //0 -> airline_name,
+    // 0 -> airline_name,
     // 1 -> airline_iata,
     // 2 -> source_name,
     // 3 -> source_iata,
@@ -100,157 +92,139 @@ void engine::loadRoutes(std::vector<std::vector<std::string>>& routes){
     // x 11 -> times_hr
 
 
-    for (int j = 0; j < routes.size(); ++j) {
+    for (auto &route : routes) {
         std::stringstream ss;
 
-        if(routes[j].size() == 12){
-            ss<<routes[j][4].substr(0,10);
+        if (route.size() == 12) {
+            ss << route[4].substr(0,10);
             double s_lat;
-            ss>>s_lat;
-
+            ss >> s_lat;
             ss.clear();
 
-            ss<<routes[j][5].substr(0,10);
+            ss << route[5].substr(0,10);
             double s_lng;
-            ss>>s_lng;
-
+            ss >> s_lng;
             ss.clear();
 
-            ss<<routes[j][8].substr(0,10);
+            ss << route[8].substr(0,10);
             double d_lat;
-            ss>>d_lat;
-
+            ss >> d_lat;
             ss.clear();
 
-            ss<<routes[j][9].substr(0,10);
+            ss << route[9].substr(0,10);
             double d_lng;
-            ss>>d_lng;
-
+            ss >> d_lng;
             ss.clear();
 
-            ss<<routes[j][10].substr(0,10);
+            ss << route[10].substr(0,10);
             double dis;
-            ss>>dis;
-
+            ss >> dis;
             ss.clear();
 
-            ss<<routes[j][11].substr(0,10);
+            ss << route[11].substr(0,10);
             double hrs;
             ss>>hrs;
 
-            v_routes.emplace_back(Route(routes[j][0],
-                                        routes[j][1],
-                                        routes[j][2],
-                                        routes[j][3],
-                                        s_lat,
-                                        s_lng,
-                                        routes[j][6],
-                                        routes[j][7],
-                                        d_lat,
-                                        d_lng,
-                                        dis,
-                                        hrs
-            ));
+            v_routes.emplace_back(Route(
+                    route[0], route[1],
+                    route[2], route[3],
+                    s_lat, s_lng,
+                    route[6], route[7],
+                    d_lat, d_lng,
+                    dis, hrs));
         }
     }
 }
 
 void engine::loadGraph(){
-
     std::ofstream out;
     out.open("result.txt");
 
-    for(int j = 0; j < v_routes.size(); ++j){
-        int from = airport_name[v_routes[j].getFrom()];
-        int to = airport_name[v_routes[j].getTo()];
+    for (auto &route : v_routes) {
+        size_t from = airport_name[route.getFrom()];
+        size_t to = airport_name[route.getTo()];
 
-        adj_matrix[from][to] = (int)(v_routes[j].getTime()*100);
-        adj_matrix[to][from] = (int)(v_routes[j].getTime()*100);
+        adj_matrix[from][to] = (int)(route.getTime()*100);
+        adj_matrix[to][from] = (int)(route.getTime()*100);
     }
 
     auto previous = new int[airport_size];
 
     //Sources
-    for(int x = 0; x < airport_size; x++){
-        for(int i = 0; i < airport_size; i++)
+    for (int x = 0; x < airport_size; ++x) {
+        for (int i = 0; i < airport_size; ++i)
             previous[i] = -1;
 
         int source = x;
         computeDijkstra(source, previous);
         std::vector<int> results[airport_size];
+
         //Targets
-        for(int z = 0; z < airport_size; z++){
+        for (int z = 0; z < airport_size; z++) {
             int target = z;
 
             //Push the itinerary.
-            for(int i = target; i != source; i = previous[i]){
-                if(airport_pos[i] != "" )
+            for (int i = target; i != source; i = previous[i]) {
+                if (!airport_pos[i].empty())
                     results[z].push_back(i);
-                else{
+                else {
                     results[z].clear();
                     break;
                 }
             }
 
-            if(results[z].size() != 0){
-                std::cout<<airport_pos[source]<<" TO "<<airport_pos[target]<<std::endl;
-                out<<airport_pos[source]<<" TO "<<airport_pos[target]<<std::endl;
+            if (!results[z].empty()) {
+//                std::cout << airport_pos[source] << " TO " << airport_pos[target] << std::endl;
+                out << airport_pos[source] << " TO " << airport_pos[target] << std::endl;
 
                 //Finally, push the source in the stack.
                 results[z].push_back(source);
 
                 //out result.
-                for(unsigned long i = results[z].size() - 1; i > 0; --i){
-                    out<<"("<<airport_pos[results[z][i]]<<")"<<" -> ";
-                }
+                for (unsigned long i = results[z].size() - 1; i > 0; --i)
+                    out << "(" << airport_pos[results[z][i]] << ")" << " -> ";
 
-                out<<"("<<airport_pos[target]<<")";
-
-                out<<'\n';
+                out << "(" << airport_pos[target] << ")" << std::endl;
             }
-
-
-
-
         }
-
     }
     
+    delete [] previous;
 
-    delete previous;
-    out<<v_airports[airport_name["LAX"]].Lat()<<", "<<v_airports[airport_name["LAX"]].Long();
+    out << v_airports[airport_name["LAX"]].Lat() << ", "
+        << v_airports[airport_name["LAX"]].Long();
+
     out.close();
     //printGraph();
 }
 
-void engine::printGraph(){
-    int one = airport_name["LAX"], two = airport_name["MEL"];
-    std::cout<<"DEMO: "<<adj_matrix[one][two]<<std::endl;
-    std::cout<<'\t';
+void engine::printGraph() {
+    size_t one = airport_name["LAX"], two = airport_name["MEL"];
+    std::cout << "DEMO: " << adj_matrix[one][two] << std::endl;
 
-    for (int v = two - 8; v < two + 4; ++v){
-        std::cout<<std::setw(5)<<airport_pos[v];
+    for (size_t v = two - 8; v < two + 4; ++v) {
+        std::cout << std::setw(5) << airport_pos[v];
     }
 
-    std::cout<<'\n';
+    std::cout << std::endl;
 
-    for (int v = one - 1; v < one + 11; ++v){
-        std::cout <<std::setw(5)<<airport_pos[v];
-        for (int j = two - 8; j < two + 4; ++j){
-            if(adj_matrix[v][j] != INT_MAX)
-                std::cout<< std::setw(5) <<adj_matrix[v][j];
+    for (size_t v = one - 1; v < one + 11; ++v) {
+        std::cout << std::setw(5) << airport_pos[v];
+
+        for (size_t j = two - 8; j < two + 4; ++j) {
+            if (adj_matrix[v][j] != INT_MAX)
+                std::cout << std::setw(5) << adj_matrix[v][j];
             else
-                std::cout<< std::setw(5)<< 'X';
-
+                std::cout << std::setw(5) << 'X';
         }
-        std::cout<<"\n";
+        std::cout << std::endl;
     }
 }
 
-std::string engine::processJsonAirports(){
+std::string engine::processJsonAirports() {
     ptree arr;
 
-    for (int j = 0; j < v_airports.size(); ++j) {
+    for (size_t j = 0; j < v_airports.size(); ++j) {
         ptree temp;
         temp.put<std::string>("iata_code", v_airports[j].Iata());
         temp.put<std::string>("name", v_airports[j].Name());
@@ -259,54 +233,48 @@ std::string engine::processJsonAirports(){
 
         arr.push_back( std::make_pair(std::to_string(j), temp));
     }
-
     std::stringstream ss;
-
     write_json(ss, arr);
+
     return ss.str();
 }
 
-std::vector<std::string> getNextLineAndSplitIntoTokens(std::istream& str){
-    std::vector<std::string>   result;
-    std::string                line;
+std::vector<std::string> getNextLineAndSplitIntoTokens(std::istream& str) {
+    std::vector<std::string> result;
+    std::string line, cell;
+
     std::getline(str,line);
+    std::stringstream lineStream(line);
 
-    std::stringstream          lineStream(line);
-    std::string                cell;
-
-    while(std::getline(lineStream,cell, ','))
-    {
+    while (std::getline(lineStream, cell, ',')) {
         result.push_back(cell);
     }
     // This checks for a trailing comma with no data after it.
-    if (!lineStream && cell.empty())
-    {
+    if (!lineStream && cell.empty()) {
         // If there was a trailing comma then add an empty element.
         result.emplace_back("");
     }
-
     return result;
 }
 
-void engine::loadData(DATASET d){
+void engine::loadData(DATASET d) {
     std::ifstream i;
-
     d ? openRoutes(i) : openAirports(i);
 
     if (i) {
         std::vector<std::vector<std::string>> data;
-        std::string line, header;
+        std::string line;
+//        std::string header;
         std::stringstream ss;
 
         // first get rid of header line
-        std::getline(i, header);
+//        std::getline(i, header);
 
         while(std::getline(i, line)) {
             ss << line;
             data.push_back(getNextLineAndSplitIntoTokens(ss));
             ss.clear();
         }
-
         d ? loadRoutes(data) : loadAirports(data);
     }
     i.close();
@@ -316,17 +284,17 @@ int minDistance(engine* e, int dist[], bool sptSet[]) {
     // Initialize min value
     int min = INT_MAX, min_index = 0;
 
-    for (int v = 0; v < e->airport_size; v++)
+    for (int v = 0; v < e->airport_size; ++v) {
         if (!sptSet[v] && dist[v] <= min) {
             min = dist[v];
             min_index = v;
         }
-
+    }
     return min_index;
 }
 
-int engine::printSolution(int dist[]) {
-    for (int i = 0; i < airport_size; i++) {
+void engine::printSolution(int dist[]) {
+    for (size_t i = 0; i < airport_size; i++) {
         if (dist[i] != INT_MAX) {
             std::cout << "For " << airport_pos[i] << std::endl
                       << "\tApproximately " << dist[i] / 100 << " hours."
@@ -335,7 +303,7 @@ int engine::printSolution(int dist[]) {
     }
 }
 
-void engine::computeDijkstra(int src,int* &previous){
+void engine::computeDijkstra(int src,int* &previous) {
 
     //shortest path tree
     int distances[airport_size];
@@ -344,7 +312,7 @@ void engine::computeDijkstra(int src,int* &previous){
     bool sptSet[airport_size];
 
     //All vertexes are initialized as infinite. nothing is visited.
-    for (int i = 0; i < airport_size; i++) {
+    for (size_t i = 0; i < airport_size; ++i) {
         distances[i] = INT_MAX;
         sptSet[i] = false;
     }
@@ -380,6 +348,5 @@ void engine::computeDijkstra(int src,int* &previous){
             }
         }
     }
-
     //printSolution(distances);
 }

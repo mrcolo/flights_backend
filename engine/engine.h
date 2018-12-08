@@ -5,12 +5,15 @@
 #ifndef SIMPLE_WEB_SERVER_ENGINE_H
 #define SIMPLE_WEB_SERVER_ENGINE_H
 #include <iostream>
+#include <sstream>
+#include <fstream>
 #include <vector>
+#include <queue>
+#include <map>
+#include <boost/property_tree/json_parser.hpp>
+#include <boost/property_tree/ptree.hpp>
 #include "./objects/Airport.h"
 #include "./objects/Route.h"
-#include <map>
-#include <boost/property_tree/ptree.hpp>
-#include <boost/property_tree/json_parser.hpp>
 
 class engine;
 
@@ -24,7 +27,6 @@ class engine {
 public:
     engine();
     ~engine();
-    engine( const engine& a );
 
     void getMe(std::string start, std::string end);
     std::string getAirports();
@@ -34,11 +36,11 @@ private:
     std::vector<Airport> v_airports;
     std::vector<Route> v_routes;
     std::string airports_json;
-    std::map<int,std::string> airport_pos;
-    std::map<std::string,int> airport_name;
+    std::map<size_t, std::string> airport_pos;
+    std::map<std::string, size_t> airport_name;
 
     int** adj_matrix;
-    int airport_size;
+    size_t airport_size;
 
     void loadData(DATASET d);
 
@@ -48,7 +50,7 @@ private:
     void loadAirports(std::vector<std::vector<std::string>>& airports);
     void loadRoutes(std::vector<std::vector<std::string>>& routes);
 
-    int printSolution(int dist[]);
+    void printSolution(int dist[]);
     void loadGraph();
     void printGraph();
     void computeDijkstra(int src, int* &directions);
