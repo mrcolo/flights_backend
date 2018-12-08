@@ -113,12 +113,12 @@ std::string engine::getAirports() {
 
 void engine::openAirports(std::ifstream& i){
 //WHEN EXECUTING FROM MAIN    i.open("../data/airports_iata.csv");
-/*WHEN EXECUTING FROM WEBSERVER*/    i.open("../data/airports_iata.csv");
+/*WHEN EXECUTING FROM WEBSERVER*/    i.open("./data/airports_iata.csv");
 }
 
 void engine::openRoutes(std::ifstream& i) {
     //WHEN EXECUTING FROM MAIN    i.open("../data/routes_final.csv");
-/*WHEN EXECUTING FROM WEBSERVER*/    i.open("../data/routes_final.csv");
+/*WHEN EXECUTING FROM WEBSERVER*/    i.open("./data/routes_final.csv");
 }
 
 void engine::loadAirports(std::vector<std::vector<std::string>>& airports) {
