@@ -140,7 +140,7 @@ void engine::openRoutes(std::ifstream& i) {
 void engine::loadAirports(std::vector<std::vector<std::string>>& airports) {
     airport_size = airports.size();
 
-    v_airports = new Airport*[airport_size];
+    v_airports = new Airport*[airport_size + 1];
 
     for (size_t i = 0; i < airports.size(); ++i) {
 
@@ -231,7 +231,8 @@ void printProgress (double percentage)
 }
 
 void engine::loadGraph(){
-
+    //TODO if the route file doesn't have that specific airport, the original value will be suuuuper small.
+    //TODO that's what creates the problem.
     for (auto &route : v_routes) {
         size_t from = airport_name[route.getFrom()];
         size_t to = airport_name[route.getTo()];
@@ -243,9 +244,9 @@ void engine::loadGraph(){
 }
 
 void engine::printGraph() {
-    size_t one = airport_name["ORD"], two = airport_name["AAA"];
+    size_t one = airport_name["ORD"], two = airport_name["AAB"];
     std::cout << "DEMO: " << adj_matrix[one][two] << std::endl;
-
+    std::cout<< "TWO:"<< two<<std::endl;
     for (size_t v = two - 8; v < two + 4; ++v) {
         std::cout << std::setw(5) << airport_pos[v];
     }
