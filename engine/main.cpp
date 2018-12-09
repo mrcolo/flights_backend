@@ -3,7 +3,7 @@
 
 int main(){
     engine e;
-    std::cout<<e.getMe("AMS","BLQ");
+    std::cout<<e.getMe("LAX","BLQ");
     return 0;
 
 }

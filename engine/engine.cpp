@@ -58,11 +58,9 @@ std::string engine::getMe(std::string start, std::string end){
         unsigned long source = airport_name[start];
 
         computeDijkstra(source, previous);
-
         std::vector<int> results;
-
         unsigned long target = airport_name[end];
-
+        std::cout<<v_airports[target]->Name()<<std::endl;
         //Push the itinerary.
         for (int i = target; i != source; i = previous[i]) {
             if (!airport_pos[i].empty())
@@ -72,7 +70,6 @@ std::string engine::getMe(std::string start, std::string end){
                 break;
             }
         }
-
         if (!results.empty()) {
 
             //Finally, push the source in the stack.
@@ -110,6 +107,7 @@ std::string engine::getMe(std::string start, std::string end){
 
     }
     else{
+
         ptree temp;
         std::stringstream ss;
         temp.put<std::string>("auth", "false");
@@ -127,12 +125,12 @@ std::string engine::getAirports() {
 
 void engine::openAirports(std::ifstream& i){
 //WHEN EXECUTING FROM MAIN    i.open("../data/airports_iata.csv");
-/*WHEN EXECUTING FROM WEBSERVER*/    i.open("./data/airports_iata.csv");
+/*WHEN EXECUTING FROM WEBSERVER*/    i.open("../data/airports_iata.csv");
 }
 
 void engine::openRoutes(std::ifstream& i) {
     //WHEN EXECUTING FROM MAIN    i.open("../data/routes_final.csv");
-/*WHEN EXECUTING FROM WEBSERVER*/    i.open("./data/routes_final.csv");
+/*WHEN EXECUTING FROM WEBSERVER*/    i.open("../data/routes_final.csv");
 }
 
 void engine::loadAirports(std::vector<std::vector<std::string>>& airports) {
@@ -266,7 +264,6 @@ void engine::printGraph() {
 std::string engine::processJsonAirports() {
     ptree arr;
 
-
     for (size_t j = 0; j < airport_size; ++j) {
         ptree temp;
         temp.put<std::string>("iata_code", v_airports[j]->Iata());
@@ -384,7 +381,7 @@ void engine::computeDijkstra(int src,int* &previous) {
             //   2. The path is actually shorter than the one that was already there.
             if (!sptSet[adj] &&
                 adj_matrix[current][adj] &&
-                distances[adj] == INT_MAX &&
+                distances[adj] != INT_MAX &&
                 distances[current] + adj_matrix[current][adj] < distances[adj]){
                 previous[adj] = current;
                 // change the value!
