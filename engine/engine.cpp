@@ -3,10 +3,6 @@
 //
 
 #include "engine.h"
-#include <vector>
-#include <sstream>
-#include <fstream>
-#include <queue>
 
 #define PBSTR "||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||"
 #define PBWIDTH 60
@@ -40,83 +36,91 @@ engine::engine() {
 engine::~engine() {
     for (size_t i = 0; i < airport_size; ++i)
         delete [] adj_matrix[i];
-
-    delete [] v_airports;
-
     delete [] adj_matrix;
-
+    delete [] v_airports;
 }
 
-std::string engine::getMe(std::string start, std::string end){
+std::string engine::getMe(std::string start, std::string end) {
+    std::string JSON;
         //printProgress((100*x)/airport_size);
-    if(start.length() == 3 && end.length() == 3){
-        auto previous = new int[airport_size];
+    if (start.length() == 3 && end.length() == 3) {
+        try {
+            auto previous = new int[airport_size];
+            for(int i = 0; i < airport_size; i++)
+                previous[i] = -1;
 
-        for(int i = 0; i < airport_size; i++)
-            previous[i] = -1;
+            int source = static_cast<int>(airport_name.at(start));
+            int target = static_cast<int>(airport_name.at(end));
+            std::vector<int> results;
 
-        unsigned long source = airport_name[start];
+           computeDijkstra(source, previous);
+            //dijkstra(source);
 
-        computeDijkstra(source, previous);
-        std::vector<int> results;
-        unsigned long target = airport_name[end];
-        std::cout<<v_airports[target]->Name()<<std::endl;
-        //Push the itinerary.
-        for (int i = target; i != source; i = previous[i]) {
-            if (!airport_pos[i].empty())
-                results.push_back(i);
-            else {
-                results.clear();
-                break;
-            }
-        }
-        if (!results.empty()) {
-
-            //Finally, push the source in the stack.
-            results.push_back(source);
-
-            ptree arr;
-            ptree temp;
-            //out result.
-            int count = 0;
-            for (unsigned long i = results.size() - 1; i > 0; --i) {
-
-                temp.put<std::string>("iata_code", v_airports[results[i]]->Iata());
-                temp.put<std::string>("name", v_airports[results[i]]->Name());
-                temp.put<double>("lat", v_airports[results[i]]->Lat());
-                temp.put<double>("lng", v_airports[results[i]]->Long());
-
-                arr.push_back(std::make_pair(std::to_string(count), temp));
-                count++;
-                //DEBUG: std::cout<<"("<<airport_pos[results[i]]<<")"<<" -> ";
+            //Push the itinerary.
+            for (int i = target; i != source; i = previous[i]) {
+                std::cout<<"IN ITERATION: "<<i<<std::endl;// replaced previous with d.at(i).second
+                if(i == -1){
+                    results.emplace_back(i);
+                    break;
+                }
+                if (airport_pos[i].empty()) {
+                    results.clear();
+                    std::cout << "path does not exist!" << std::endl;
+                    break;
+                }
+                else {
+                    results.emplace_back(i);
+                }
             }
 
-            temp.put<std::string>("iata_code", v_airports[target]->Iata());
-            temp.put<std::string>("name", v_airports[target]->Name());
-            temp.put<double>("lat", v_airports[target]->Lat());
-            temp.put<double>("lng", v_airports[target]->Long());
-            arr.push_back(std::make_pair(std::to_string(results.size() - 1), temp));
-            std::stringstream ss;
+            if (!results.empty()) {
+                //Finally, push the source in the stack.
+                results.emplace_back(source);
 
-            write_json(ss, arr);
-            std::string JSON = ss.str();
+                ptree arr;
+                ptree temp;
+                int count = 0;
 
-            return JSON;
+                //out result.
+                for (int i = static_cast<int>(results.size()) - 1; i >= 0; --i) // added 1 >= 0 to remove code for target below
+                {
+                    temp.put<std::string>("iata_code", v_airports[results[i]]->Iata());
+                    temp.put<std::string>("name", v_airports[results[i]]->Name());
+                    temp.put<double>("lat", v_airports[results[i]]->Lat());
+                    temp.put<double>("lng", v_airports[results[i]]->Long());
 
+                    arr.push_back(std::make_pair(std::to_string(count), temp));
+                    ++count;
+                    //std::cout<<"("<<airport_pos[results[i]]<<")"<<" -> ";
+                }
+
+//                temp.put<std::string>("iata_code", v_airports[target]->Iata());
+//                temp.put<std::string>("name", v_airports[target]->Name());
+//                temp.put<double>("lat", v_airports[target]->Lat());
+//                temp.put<double>("lng", v_airports[target]->Long());
+//
+//                arr.push_back(std::make_pair(std::to_string(results.size() - 1), temp));
+
+
+                std::stringstream ss;
+                write_json(ss, arr);
+                JSON = ss.str();
+                return JSON;
+            }
         }
-
+        catch (const std::out_of_range& oor) {
+            std::cerr << "Out of Range error: " << oor.what() << std::endl;
+        }
     }
-    else{
-
+    else {
         ptree temp;
         std::stringstream ss;
         temp.put<std::string>("auth", "false");
         write_json(ss, temp);
-        std::string JSON = ss.str();
-
+        JSON = ss.str();
         return JSON;
     }
-
+    return JSON;
 }
 
 std::string engine::getAirports() {
@@ -154,7 +158,7 @@ void engine::loadAirports(std::vector<std::vector<std::string>>& airports) {
 
             airport_pos[i] = airports[i][0];
             airport_name[airports[i][0]] = i;
-            v_airports[i] = new Airport(airports[i][0], airports[i][1], lat, lng);;
+            v_airports[i] = new Airport(airports[i][0], airports[i][1], lat, lng);
         }
     }
 }
@@ -235,11 +239,11 @@ void engine::loadGraph(){
         adj_matrix[to][from] = (int)(route.getTime()*100);
     }
 
-    //printGraph();
+    printGraph();
 }
 
 void engine::printGraph() {
-    size_t one = airport_name["LAX"], two = airport_name["MEL"];
+    size_t one = airport_name["ORD"], two = airport_name["AAA"];
     std::cout << "DEMO: " << adj_matrix[one][two] << std::endl;
 
     for (size_t v = two - 8; v < two + 4; ++v) {
@@ -344,6 +348,7 @@ void engine::printSolution(int dist[]) {
     }
 }
 
+// ORIGINAL IMPLEMENTATION
 void engine::computeDijkstra(int src,int* &previous) {
 
     //shortest path tree
@@ -369,7 +374,7 @@ void engine::computeDijkstra(int src,int* &previous) {
         //pick adjacent vertex with the minimum distance.
         //This is the current node.
 
-        int current = minDistance(this, distances, sptSet);
+        int current = ::minDistance(this, distances, sptSet);
         // Mark the picked vertex as processed
         sptSet[current] = true;
 
@@ -381,7 +386,7 @@ void engine::computeDijkstra(int src,int* &previous) {
             //   2. The path is actually shorter than the one that was already there.
             if (!sptSet[adj] &&
                 adj_matrix[current][adj] &&
-                distances[adj] != INT_MAX &&
+                distances[adj] == INT_MAX &&
                 distances[current] + adj_matrix[current][adj] < distances[adj]){
                 previous[adj] = current;
                 // change the value!
@@ -389,5 +394,60 @@ void engine::computeDijkstra(int src,int* &previous) {
             }
         }
     }
-    //printSolution(distances);
+//    printSolution(distances);
+}
+
+// MEMBER MIN DISTANCE
+int engine::minDistance(bool sptSet[]) {
+    // Initialize min value
+    int min = INT_MAX, min_index = 0;
+
+    for (int v = 0; v < static_cast<int>(airport_size); ++v) {
+        if (!sptSet[v] && d.at(v).first <= min) {
+            min = d.at(v).first;
+            min_index = v;
+        }
+    }
+    return min_index;
+}
+
+// ALTERNATE VERSION TEST
+void engine::dijkstra(int src) {
+//    int dist[airport_size];   // The output array.  dist[i] will hold the shortest
+                              // distance from src to i
+
+    bool sptSet[airport_size];  // sptSet[i] will be true if vertex i is included in shortest
+                                // path tree or shortest distance from src to i is finalized
+
+    // Initialize all distances as INFINITE and stpSet[] as false
+    for (int i = 0; i < static_cast<int>(airport_size); ++i) {
+        d.emplace_back(std::make_pair(INT_MAX, -1));
+        sptSet[i] = false;
+    }
+
+    // Distance of source vertex from itself is always 0
+    d.at(src).first = 0;
+
+    // Find shortest path for all vertices
+    for (int count = 0; count < static_cast<int>(airport_size) - 1; ++count) {
+        // Pick the minimum distance vertex from the set of vertices not
+        // yet processed. u is always equal to src in the first iteration.
+        int u = minDistance(sptSet);
+
+        // Mark the picked vertex as processed
+        sptSet[u] = true;
+
+        // Update dist value of the adjacent vertices of the picked vertex.
+        for (int v = 0; v < static_cast<int>(airport_size); ++v) {
+            // Update dist[v] only if is not in sptSet, there is an edge from
+            // u to v, and total weight of path from src to  v through u is
+            // smaller than current value of dist[v]
+            if (!sptSet[v] && adj_matrix[u][v] && d.at(u).first != INT_MAX
+                && d.at(u).first + adj_matrix[u][v] < d.at(v).first)
+            {
+                d.at(v).first = d.at(u).first + adj_matrix[u][v];
+                d.at(v).second = u;
+            }
+        }
+    }
 }
