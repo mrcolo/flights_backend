@@ -99,7 +99,7 @@ std::string engine::getMe(std::string start, std::string end) {
                 std::stringstream ss;
                 write_json(ss, arr);
                 JSON = ss.str();
-//                return JSON;
+                return JSON;
             }
         }
         catch (const std::out_of_range& oor) {
@@ -112,7 +112,7 @@ std::string engine::getMe(std::string start, std::string end) {
         temp.put<std::string>("auth", "false");
         write_json(ss, temp);
         JSON = ss.str();
-//        return JSON;
+        return JSON;
     }
     return JSON;
 }
