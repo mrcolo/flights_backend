@@ -55,6 +55,11 @@ private:
     void loadGraph();
     void printGraph();
     void computeDijkstra(int src, int* &directions);
+
+    // alternate implementation
+    std::vector<std::pair<int, int>> d; // distances (first = dist, second = prev index)
+    int minDistance(bool sptSet[]); // uses vector of pairs "d"
+    void dijkstra(int src); // uses adj_matrix
 };
 
 #endif //SIMPLE_WEB_SERVER_ENGINE_H
