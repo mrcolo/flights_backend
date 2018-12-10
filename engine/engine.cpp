@@ -24,8 +24,8 @@ engine::engine() {
             adj_matrix[j][v] = 0;
         }
     }
-
     loadGraph();
+
 
     std::cout<<"Processed data..."<<std::endl;
     //airports_json = processJsonAirports();
