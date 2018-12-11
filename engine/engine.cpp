@@ -21,7 +21,7 @@ engine::engine() {
 
     for (size_t j = 0; j < airport_size; ++j) {
         for (size_t v = 0; v < airport_size; ++v) {
-            adj_matrix[j][v] = 0;
+            adj_matrix[j][v] = INT_MAX;
         }
     }
     loadGraph();
@@ -129,12 +129,12 @@ std::string engine::getAirports() {
 
 void engine::openAirports(std::ifstream& i){
 //WHEN EXECUTING FROM MAIN    i.open("../data/airports_iata.csv");
-/*WHEN EXECUTING FROM WEBSERVER*/    i.open("./data/airports_iata.csv");
+/*WHEN EXECUTING FROM WEBSERVER*/    i.open("../data/airports_iata.csv");
 }
 
 void engine::openRoutes(std::ifstream& i) {
     //WHEN EXECUTING FROM MAIN    i.open("../data/routes_final.csv");
-/*WHEN EXECUTING FROM WEBSERVER*/    i.open("./data/routes_final.csv");
+/*WHEN EXECUTING FROM WEBSERVER*/    i.open("../data/routes_final.csv");
 }
 
 void engine::loadAirports(std::vector<std::vector<std::string>>& airports) {
