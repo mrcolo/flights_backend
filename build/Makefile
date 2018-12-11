@@ -209,6 +209,60 @@ engine/engine.cpp.s:
 	$(MAKE) -f CMakeFiles/http_examples.dir/build.make CMakeFiles/http_examples.dir/engine/engine.cpp.s
 .PHONY : engine/engine.cpp.s
 
+engine/objects/Airport.o: engine/objects/Airport.cpp.o
+
+.PHONY : engine/objects/Airport.o
+
+# target to build an object file
+engine/objects/Airport.cpp.o:
+	$(MAKE) -f CMakeFiles/http_examples.dir/build.make CMakeFiles/http_examples.dir/engine/objects/Airport.cpp.o
+.PHONY : engine/objects/Airport.cpp.o
+
+engine/objects/Airport.i: engine/objects/Airport.cpp.i
+
+.PHONY : engine/objects/Airport.i
+
+# target to preprocess a source file
+engine/objects/Airport.cpp.i:
+	$(MAKE) -f CMakeFiles/http_examples.dir/build.make CMakeFiles/http_examples.dir/engine/objects/Airport.cpp.i
+.PHONY : engine/objects/Airport.cpp.i
+
+engine/objects/Airport.s: engine/objects/Airport.cpp.s
+
+.PHONY : engine/objects/Airport.s
+
+# target to generate assembly for a file
+engine/objects/Airport.cpp.s:
+	$(MAKE) -f CMakeFiles/http_examples.dir/build.make CMakeFiles/http_examples.dir/engine/objects/Airport.cpp.s
+.PHONY : engine/objects/Airport.cpp.s
+
+engine/objects/Route.o: engine/objects/Route.cpp.o
+
+.PHONY : engine/objects/Route.o
+
+# target to build an object file
+engine/objects/Route.cpp.o:
+	$(MAKE) -f CMakeFiles/http_examples.dir/build.make CMakeFiles/http_examples.dir/engine/objects/Route.cpp.o
+.PHONY : engine/objects/Route.cpp.o
+
+engine/objects/Route.i: engine/objects/Route.cpp.i
+
+.PHONY : engine/objects/Route.i
+
+# target to preprocess a source file
+engine/objects/Route.cpp.i:
+	$(MAKE) -f CMakeFiles/http_examples.dir/build.make CMakeFiles/http_examples.dir/engine/objects/Route.cpp.i
+.PHONY : engine/objects/Route.cpp.i
+
+engine/objects/Route.s: engine/objects/Route.cpp.s
+
+.PHONY : engine/objects/Route.s
+
+# target to generate assembly for a file
+engine/objects/Route.cpp.s:
+	$(MAKE) -f CMakeFiles/http_examples.dir/build.make CMakeFiles/http_examples.dir/engine/objects/Route.cpp.s
+.PHONY : engine/objects/Route.cpp.s
+
 http_examples.o: http_examples.cpp.o
 
 .PHONY : http_examples.o
@@ -280,6 +334,12 @@ help:
 	@echo "... engine/engine.o"
 	@echo "... engine/engine.i"
 	@echo "... engine/engine.s"
+	@echo "... engine/objects/Airport.o"
+	@echo "... engine/objects/Airport.i"
+	@echo "... engine/objects/Airport.s"
+	@echo "... engine/objects/Route.o"
+	@echo "... engine/objects/Route.i"
+	@echo "... engine/objects/Route.s"
 	@echo "... http_examples.o"
 	@echo "... http_examples.i"
 	@echo "... http_examples.s"
